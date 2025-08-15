@@ -73,6 +73,12 @@ export default function ArtistCarousel({ artists, setArtists, activeArtist, setA
     };
   }, [startAutoSlider, stopAutoSlider]);
 
+  useEffect(() => {
+    if (artists.length > 0) {
+      setActiveArtist(artists[1]);
+    }
+  }, [artists, setActiveArtist]);
+
   return (
     <div className={`carousel ${carouselClass} ${showDetail ? 'showDetail' : ''}`}>
       <div className="list">
