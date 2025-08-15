@@ -66,13 +66,45 @@ const fashionItems = [
     imageUrl: 'https://placehold.co/400x400/FFDC00/000000',
     imageHint: 'yellow beanie'
   },
-   {
+  {
     id: 'fsh-004',
     name: 'Soundwave Snapback',
     price: 35.00,
     sizes: ['One Size'],
     imageUrl: 'https://placehold.co/400x400/0074D9/ffffff',
     imageHint: 'blue snapback hat'
+  },
+  {
+    id: 'fsh-005',
+    name: 'Third Eye Joggers',
+    price: 55.00,
+    sizes: ['S', 'M', 'L'],
+    imageUrl: 'https://placehold.co/400x400/85144b/ffffff',
+    imageHint: 'maroon joggers'
+  },
+  {
+    id: 'fsh-006',
+    name: 'Vibes Bucket Hat',
+    price: 28.00,
+    sizes: ['One Size'],
+    imageUrl: 'https://placehold.co/400x400/F012BE/000000',
+    imageHint: 'pink bucket hat'
+  },
+  {
+    id: 'fsh-007',
+    name: 'Gr8tful Long Sleeve',
+    price: 40.00,
+    sizes: ['L', 'XL', 'XXL'],
+    imageUrl: 'https://placehold.co/400x400/AAAAAA/000000',
+    imageHint: 'grey long sleeve shirt'
+  },
+  {
+    id: 'fsh-008',
+    name: 'Producer Socks',
+    price: 15.00,
+    sizes: ['One Size'],
+    imageUrl: 'https://placehold.co/400x400/FFFFFF/000000',
+    imageHint: 'white socks with logo'
   },
 ];
 
