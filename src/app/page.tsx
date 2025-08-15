@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/header';
-import ArtistCarousel from '@/components/artist-carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
 
@@ -164,7 +163,7 @@ const artistsData: Artist[] = [
 
 export default function Home() {
   const [artists, setArtists] = useState(artistsData);
-  const [activeArtist, setActiveArtist] = useState(artists[1]);
+  const [activeArtist, setActiveArtist] = useState(artists[0]);
   const [dateString, setDateString] = useState('');
 
   useEffect(() => {
@@ -185,7 +184,19 @@ export default function Home() {
             </div>
             <AIPrioritizationDialog artists={artists.map(a => a.name)} />
           </div>
-          <ArtistCarousel artists={artists} setArtists={setArtists} activeArtist={activeArtist} setActiveArtist={setActiveArtist} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {artists.map((artist) => (
+              <Card key={artist.id} className="bg-card border-border/20">
+                <CardContent className="p-0">
+                  <Image src={artist.imageUrl} alt={artist.name} width={600} height={800} className="rounded-t-lg object-cover aspect-[4/5]" data-ai-hint={artist.imageHint} />
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg">{artist.name}</h3>
+                    <p className="text-muted-foreground text-sm">{artist.title}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         <div className="content-section" id="events">
