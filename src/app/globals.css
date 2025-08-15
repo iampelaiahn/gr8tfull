@@ -552,4 +552,12 @@ body {
         filter: blur(130px);
         animation: spotlight 15s ease-in-out infinite;
     }
+
+    /* Social Club Page Styles */
+    .social-club-card {
+        @apply bg-card/50 backdrop-blur-sm border-white/10 transition-all duration-300;
+    }
+    .social-club-card:hover {
+        @apply border-primary/50 transform-gpu scale-[1.02] shadow-2xl shadow-primary/10;
+    }
 }
