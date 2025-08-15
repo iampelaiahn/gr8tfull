@@ -31,7 +31,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Select,
   SelectContent,
@@ -50,7 +49,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email." }),
-  artist: z.string().min(1, { message: "Please select an artist." }),
+  artists: z.array(z.string()).min(1, { message: "Please select at least one artist." }),
   eventDate: z.date({
     required_error: "An event date is required.",
   }),
@@ -78,7 +77,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     defaultValues: {
       name: "",
       email: "",
-      artist: activeArtist?.id || "",
+      artists: [],
       eventTime: [18, 20], // Default to 6 PM - 8 PM
       venue: "",
       message: "",
@@ -87,13 +86,21 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
   
   useEffect(() => {
     if (open && activeArtist) {
-      form.setValue('artist', activeArtist.id);
+        // Set the active artist as the initial (and only) selection
+        form.setValue('artists', [activeArtist.id]);
     }
     if (!open) {
       // Reset state when dialog closes
       setIsConfirming(false);
       setFormData(null);
-      form.reset();
+      form.reset({
+          name: "",
+          email: "",
+          artists: [],
+          eventTime: [18, 20],
+          venue: "",
+          message: "",
+      });
     }
   }, [activeArtist, form, open]);
 
@@ -119,7 +126,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     setOpen(false)
   }
 
-  const selectedArtist = artists.find(a => a.id === (formData?.artist || form.watch('artist')))
+  const selectedArtistIds = formData?.artists || form.watch('artists') || [];
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -144,25 +151,38 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
             <form onSubmit={form.handleSubmit(onReview)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="artist"
+                name="artists"
                 render={({ field }) => (
                   <FormItem className="space-y-3">
-                    <FormLabel>Select an Artist</FormLabel>
+                    <FormLabel>Select Artist(s)</FormLabel>
                     <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid grid-cols-4 md:grid-cols-4 gap-4"
-                      >
-                        {artists.map((artist) => (
-                          <FormItem key={artist.id} className="space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value={artist.id} className="sr-only" />
-                            </FormControl>
-                            <FormLabel className={cn(
-                              "font-normal block rounded-full border-2 border-muted bg-popover p-1 hover:border-accent has-[[data-state=checked]]:border-primary cursor-pointer",
-                              "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            )}>
+                       <div className="grid grid-cols-4 md:grid-cols-4 gap-4">
+                        {artists.map((artist) => {
+                          const selectionIndex = field.value.indexOf(artist.id);
+                          const isSelected = selectionIndex !== -1;
+                          return (
+                            <div key={artist.id} className="space-y-0">
+                              <label
+                                className={cn(
+                                  "font-normal block rounded-full border-2 border-muted bg-popover p-1 hover:border-accent cursor-pointer relative",
+                                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                                  isSelected && "border-primary"
+                                )}
+                                onClick={() => {
+                                  const newSelection = [...field.value];
+                                  if (isSelected) {
+                                    newSelection.splice(selectionIndex, 1);
+                                  } else {
+                                    newSelection.push(artist.id);
+                                  }
+                                  field.onChange(newSelection);
+                                }}
+                              >
+                                {isSelected && (
+                                  <div className="absolute top-0 right-0 z-10 w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
+                                    {selectionIndex + 1}
+                                  </div>
+                                )}
                                 <div className="relative aspect-square w-full mb-1 overflow-hidden rounded-full">
                                   <Image
                                     src={artist.imageUrl}
@@ -175,10 +195,11 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                                 <span className="block text-center text-xs font-medium text-foreground">
                                   {artist.name}
                                 </span>
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                      </RadioGroup>
+                              </label>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -351,14 +372,22 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                 <CardTitle>Booking Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm">
-                <div className="flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
-                        <AvatarImage src={selectedArtist?.imageUrl} alt={selectedArtist?.name} />
-                        <AvatarFallback>{selectedArtist?.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                        <p className="font-semibold text-base">{selectedArtist?.name}</p>
-                        <p className="text-muted-foreground">Artist</p>
+                <div className="space-y-2">
+                    <p className="font-semibold">Selected Artists</p>
+                    <div className="flex flex-wrap gap-2">
+                        {selectedArtistIds.map((artistId) => {
+                             const artist = artists.find(a => a.id === artistId);
+                             if (!artist) return null;
+                             return (
+                                <div key={artist.id} className="flex items-center gap-2 bg-muted p-2 rounded-md">
+                                    <Avatar className="h-8 w-8">
+                                        <AvatarImage src={artist.imageUrl} alt={artist.name} />
+                                        <AvatarFallback>{artist.name.charAt(0)}</AvatarFallback>
+                                    </Avatar>
+                                    <span className="text-muted-foreground font-medium">{artist.name}</span>
+                                </div>
+                             )
+                        })}
                     </div>
                 </div>
 
@@ -400,5 +429,3 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     </Dialog>
   )
 }
-
-    
