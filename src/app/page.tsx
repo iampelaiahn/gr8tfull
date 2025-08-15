@@ -4,9 +4,10 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/header';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
 import ArtistCarousel from '@/components/artist-carousel';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export type Project = {
   title: string;
@@ -214,6 +215,60 @@ export default function Home() {
       <main className="hero-content flex-grow flex flex-col pt-8">
 
         <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
+        
+        <div className="content-section py-16" id="dedications">
+          <div className="content-header mb-8 text-center">
+            <h2 className="text-4xl m-0">Dedications</h2>
+            <p className="text-muted-foreground mt-2">A special thanks to the people who made it all possible.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="bg-card/50 backdrop-blur-sm border-white/10">
+              <CardHeader className="flex-row items-center gap-4">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src="https://placehold.co/100x100/FFDC00/000000" alt="Jintzu Okkzki" data-ai-hint="wise person" />
+                  <AvatarFallback>JO</AvatarFallback>
+                </Avatar>
+                <div>
+                  <CardTitle>Jintzu Okkzki</CardTitle>
+                  <p className="text-muted-foreground">The Mentor</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/80">"To the one who saw the spark and fanned it into a flame. Your guidance was the compass that led me here. Thank you for everything."</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-card/50 backdrop-blur-sm border-white/10">
+              <CardHeader className="flex-row items-center gap-4">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src="https://placehold.co/100x100/B10DC9/ffffff" alt="!NV3RC3" data-ai-hint="visionary person" />
+                  <AvatarFallback>!N</AvatarFallback>
+                </Avatar>
+                <div>
+                  <CardTitle>!NV3RC3</CardTitle>
+                  <p className="text-muted-foreground">The Visionary</p>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/80">"For the vision that challenged me, the standards that pushed me, and the belief that lifted me. We're building the future you imagined."</p>
+              </CardContent>
+            </Card>
+             <Card className="bg-card/50 backdrop-blur-sm border-white/10">
+              <CardHeader className="flex-row items-center gap-4">
+                 <Avatar className="h-16 w-16">
+                   <AvatarImage src="https://placehold.co/100x100/F012BE/ffffff" alt="Micheal" data-ai-hint="ethereal angel" />
+                   <AvatarFallback>M</AvatarFallback>
+                 </Avatar>
+                 <div>
+                   <CardTitle>The Community</CardTitle>
+                   <p className="text-muted-foreground">The Inspiration</p>
+                 </div>
+              </CardHeader>
+              <CardContent>
+                 <p className="text-foreground/80">"To every listener, supporter, and collaborator. You are the heartbeat of this journey. This is for you, always."</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
         <div className="content-section" id="events">
           <div className="content-header mb-5">
@@ -250,7 +305,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    

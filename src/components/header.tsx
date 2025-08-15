@@ -27,7 +27,7 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
 
-  const navLinks = ['Home', 'Social Club', 'Events'];
+  const navLinks = ['Home', 'Dedications', 'Events'];
 
   const handleQrCodeClick = () => {
     if (typeof window !== 'undefined') {
