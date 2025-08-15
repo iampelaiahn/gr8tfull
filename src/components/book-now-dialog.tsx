@@ -8,6 +8,7 @@ import { z } from "zod"
 import Image from "next/image"
 import { format } from "date-fns"
 import { CalendarIcon, ArrowLeft } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -118,7 +119,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     setOpen(false)
   }
 
-  const selectedArtist = artists.find(a => a.id === formData?.artist)
+  const selectedArtist = artists.find(a => a.id === (formData?.artist || form.watch('artist')))
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -399,3 +400,5 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     </Dialog>
   )
 }
+
+    
