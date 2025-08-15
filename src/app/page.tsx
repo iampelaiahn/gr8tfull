@@ -69,7 +69,7 @@ const artistsData: Artist[] = [
     imageHint: "futuristic art",
     projects: [
         { title: 'Digital Dreams', type: 'EP', imageUrl: 'https://placehold.co/200x200/39CCCC/000000', imageHint: 'ai generated landscape', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
-        { title: 'Neural Net', type: 'Single', imageUrl: 'https://placehold.co/200x200/39CCCC/ffffff', imageHint: 'glowing brain network' },
+        { title: 'Neural Net', type: 'Single', imageUrl: 'https://placehold.co/200x200/39CCCC/ffffff', imageHint: 'glowing brain network', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
     ],
     socials: { youtube: '#', twitter: '#', youtubemusic: '#' },
     gradient: { from: '#39CCCC', to: '#001f3f' },
@@ -83,8 +83,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/3D9970/ffffff',
     imageHint: "dj equipment",
     projects: [
-        { title: 'Subterranean Sounds', type: 'Mix', imageUrl: 'https://placehold.co/200x200/3D9970/000000', imageHint: 'dark club atmosphere' },
-        { title: 'Rinse Out', type: 'Live Set', imageUrl: 'https://placehold.co/200x200/3D9970/ffffff', imageHint: 'crowd cheering' },
+        { title: 'Subterranean Sounds', type: 'Mix', imageUrl: 'https://placehold.co/200x200/3D9970/000000', imageHint: 'dark club atmosphere', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+        { title: 'Rinse Out', type: 'Live Set', imageUrl: 'https://placehold.co/200x200/3D9970/ffffff', imageHint: 'crowd cheering', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
     ],
     socials: { mixcloud: '#', soundcloud: '#', audiomack: '#' },
     gradient: { from: '#3D9970', to: '#01FF70' },
@@ -98,8 +98,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/2ECC40/000000',
     imageHint: "calm nature",
     projects: [
-        { title: 'Serenity', type: 'Album', imageUrl: 'https://placehold.co/200x200/2ECC40/000000', imageHint: 'zen garden' },
-        { title: 'Breathe', type: 'Single', imageUrl: 'https://placehold.co/200x200/2ECC40/ffffff', imageHint: 'soft clouds' },
+        { title: 'Serenity', type: 'Album', imageUrl: 'https://placehold.co/200x200/2ECC40/000000', imageHint: 'zen garden', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' },
+        { title: 'Breathe', type: 'Single', imageUrl: 'https://placehold.co/200x200/2ECC40/ffffff', imageHint: 'soft clouds', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' },
     ],
     socials: { apple: '#', spotify: '#' },
     gradient: { from: '#2ECC40', to: '#FFFFFF' },
@@ -113,8 +113,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/FFDC00/000000',
     imageHint: "audio waves",
     projects: [
-        { title: 'Legacy', type: 'Compilation', imageUrl: 'https://placehold.co/200x200/FFDC00/000000', imageHint: 'gold record' },
-        { title: 'The Mentor', type: 'Documentary', imageUrl: 'https://placehold.co/200x200/FFDC00/ffffff', imageHint: 'old studio photo' },
+        { title: 'Legacy', type: 'Compilation', imageUrl: 'https://placehold.co/200x200/FFDC00/000000', imageHint: 'gold record', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' },
+        { title: 'The Mentor', type: 'Documentary', imageUrl: 'https://placehold.co/200x200/FFDC00/ffffff', imageHint: 'old studio photo', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' },
     ],
     socials: { bandcamp: '#', youtube: '#' },
     gradient: { from: '#FFDC00', to: '#FF851B' },
@@ -128,8 +128,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/FF851B/000000',
     imageHint: "street party",
     projects: [
-        { title: 'Block Party', type: 'Mix', imageUrl: 'https://placehold.co/200x200/FF851B/000000', imageHint: 'boombox illustration' },
-        { title: 'Summer Jams', type: 'Playlist', imageUrl: 'https://placehold.co/200x200/FF851B/ffffff', imageHint: 'beach sunset' },
+        { title: 'Block Party', type: 'Mix', imageUrl: 'https://placehold.co/200x200/FF851B/000000', imageHint: 'boombox illustration', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3' },
+        { title: 'Summer Jams', type: 'Playlist', imageUrl: 'https://placehold.co/200x200/FF851B/ffffff', imageHint: 'beach sunset', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3' },
     ],
     socials: { soundcloud: '#', instagram: '#' },
     gradient: { from: '#FF851B', to: '#FF4136' },
@@ -143,8 +143,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/F012BE/ffffff',
     imageHint: "ethereal angel",
     projects: [
-        { title: 'Ascension', type: 'Album', imageUrl: 'https://placehold.co/200x200/F012BE/000000', imageHint: 'angel wings' },
-        { title: 'Metamorphosis', type: 'Visual EP', imageUrl: 'https://placehold.co/200x200/F012BE/ffffff', imageHint: 'butterfly abstract' },
+        { title: 'Ascension', type: 'Album', imageUrl: 'https://placehold.co/200x200/F012BE/000000', imageHint: 'angel wings', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3' },
+        { title: 'Metamorphosis', type: 'Visual EP', imageUrl: 'https://placehold.co/200x200/F012BE/ffffff', imageHint: 'butterfly abstract', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3' },
     ],
     socials: { youtube: '#', bandcamp: '#' },
     gradient: { from: '#F012BE', to: '#B10DC9' },
@@ -158,8 +158,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/B10DC9/ffffff',
     imageHint: "abstract strategy",
     projects: [
-        { title: 'The Blueprint', type: 'Manifesto', imageUrl: 'https://placehold.co/200x200/B10DC9/000000', imageHint: 'architectural drawing' },
-        { title: 'Vision', type: 'Concept Album', imageUrl: 'https://placehold.co/200x200/B10DC9/ffffff', imageHint: 'crystal ball' },
+        { title: 'The Blueprint', type: 'Manifesto', imageUrl: 'https://placehold.co/200x200/B10DC9/000000', imageHint: 'architectural drawing', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3' },
+        { title: 'Vision', type: 'Concept Album', imageUrl: 'https://placehold.co/200x200/B10DC9/ffffff', imageHint: 'crystal ball', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3' },
     ],
     socials: { twitter: '#' },
     gradient: { from: '#B10DC9', to: '#85144b' },
@@ -173,8 +173,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/FF69B4/ffffff',
     imageHint: "female vocalist",
     projects: [
-        { title: 'Starlight Stories', type: 'Album', imageUrl: 'https://placehold.co/200x200/FF69B4/000000', imageHint: 'night sky' },
-        { title: 'Echoes', type: 'Acoustic EP', imageUrl: 'https://placehold.co/200x200/FF69B4/ffffff', imageHint: 'guitar silhouette' },
+        { title: 'Starlight Stories', type: 'Album', imageUrl: 'https://placehold.co/200x200/FF69B4/000000', imageHint: 'night sky', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+        { title: 'Echoes', type: 'Acoustic EP', imageUrl: 'https://placehold.co/200x200/FF69B4/ffffff', imageHint: 'guitar silhouette', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
     ],
     socials: { spotify: '#', instagram: '#', youtubemusic: '#' },
     gradient: { from: '#FF69B4', to: '#FFB6C1' },
@@ -188,8 +188,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/00008B/ffffff',
     imageHint: "binary code",
     projects: [
-        { title: 'Generative Suite', type: 'Album', imageUrl: 'https://placehold.co/200x200/00008B/000000', imageHint: 'matrix code' },
-        { title: 'Recursion', type: 'Single', imageUrl: 'https://placehold.co/200x200/00008B/ffffff', imageHint: 'fractal pattern' },
+        { title: 'Generative Suite', type: 'Album', imageUrl: 'https://placehold.co/200x200/00008B/000000', imageHint: 'matrix code', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+        { title: 'Recursion', type: 'Single', imageUrl: 'https://placehold.co/200x200/00008B/ffffff', imageHint: 'fractal pattern', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
     ],
     socials: { twitter: '#', bandcamp: '#' },
     gradient: { from: '#00008B', to: '#000000' },
@@ -203,8 +203,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/800080/ffffff',
     imageHint: "bass guitar",
     projects: [
-        { title: 'The Pocket', type: 'Instrumental Album', imageUrl: 'https://placehold.co/200x200/800080/000000', imageHint: 'close up bass strings' },
-        { title: 'Funkadelic Tribute', type: 'Live Session', imageUrl: 'https://placehold.co/200x200/800080/ffffff', imageHint: 'vintage funk band' },
+        { title: 'The Pocket', type: 'Instrumental Album', imageUrl: 'https://placehold.co/200x200/800080/000000', imageHint: 'close up bass strings', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
+        { title: 'Funkadelic Tribute', type: 'Live Session', imageUrl: 'https://placehold.co/200x200/800080/ffffff', imageHint: 'vintage funk band', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
     ],
     socials: { bandcamp: '#', youtube: '#' },
     gradient: { from: '#800080', to: '#4B0082' },
@@ -318,3 +318,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
