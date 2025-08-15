@@ -10,6 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Artist } from '@/app/page';
 import QRCode from 'qrcode.react';
 import BookNowDialog from './book-now-dialog';
+import { Separator } from './ui/separator';
 
 type HeaderProps = {
   activeArtist: Artist;
@@ -23,9 +24,16 @@ const QRCodeGenerator = ({ text }: { text: string }) => {
   return <QRCode value={text} size={192} />;
 };
 
+const notifications = [
+    { id: 1, title: 'New Album Drop', description: 'Nobody just released their new album "Genesis"!', time: '2h ago' },
+    { id: 2, title: 'Live Now!', description: 'imnotfamous is streaming a live set from the studio.', time: '1d ago' },
+    { id: 3, title: 'Event Reminder', description: 'Don\'t miss the Gr8tful Music Festival next month.', time: '3d ago' },
+];
+
 export default function Header({ activeArtist, artists }: HeaderProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
+  const [hasUnseenNotifications, setHasUnseenNotifications] = useState(true);
 
   const navLinks = [
     { name: 'Home', href: '/#home' },
@@ -97,10 +105,36 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
                 )}
             </PopoverContent>
           </Popover>
-          <div className="notification-icon relative">
-            <Bell className="cursor-pointer" />
-            <span className="notification-dot absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background"></span>
-          </div>
+          
+          <Popover onOpenChange={(open) => { if(open) setHasUnseenNotifications(false)}}>
+            <PopoverTrigger asChild>
+              <div className="notification-icon relative cursor-pointer">
+                <Bell />
+                {hasUnseenNotifications && <span className="notification-dot absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-background"></span>}
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 bg-background/80 backdrop-blur-md border-white/20 p-0">
+                <div className="p-4">
+                   <h4 className="font-medium text-foreground">Notifications</h4>
+                </div>
+                <Separator />
+                <div className="p-2 max-h-80 overflow-y-auto">
+                    {notifications.length > 0 ? (
+                        notifications.map((notification, index) => (
+                            <div key={notification.id} className="p-2 hover:bg-muted/50 rounded-lg">
+                                <p className="font-semibold text-sm text-foreground">{notification.title}</p>
+                                <p className="text-xs text-muted-foreground">{notification.description}</p>
+                                <p className="text-xs text-muted-foreground/50 mt-1 text-right">{notification.time}</p>
+                                {index < notifications.length - 1 && <Separator className="my-2 bg-border/50" />}
+                            </div>
+                        ))
+                    ) : (
+                        <p className="text-sm text-muted-foreground text-center p-4">No new notifications</p>
+                    )}
+                </div>
+            </PopoverContent>
+          </Popover>
+
         </div>
         <Avatar>
           <AvatarImage src="https://placehold.co/36x36" />
