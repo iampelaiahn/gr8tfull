@@ -6,7 +6,10 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import Image from "next/image"
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
 import {
   Dialog,
   DialogContent,
@@ -20,6 +23,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,6 +31,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Slider } from "@/components/ui/slider"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Artist } from "@/app/page"
@@ -36,6 +49,11 @@ const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Please enter a valid email." }),
   artist: z.string().min(1, { message: "Please select an artist." }),
+  eventDate: z.date({
+    required_error: "An event date is required.",
+  }),
+  eventTime: z.array(z.number()).min(1).max(1),
+  eventType: z.string().min(1, { message: "Please select an event type." }),
   message: z.string().optional(),
 })
 
@@ -54,12 +72,11 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
       name: "",
       email: "",
       artist: activeArtist?.id || "",
+      eventTime: [18], // Default to 6 PM
       message: "",
     },
   })
   
-  // Using useEffect to reactively update the form's default artist
-  // when the dialog is opened or the activeArtist changes.
   useEffect(() => {
     if (open && activeArtist) {
       form.setValue('artist', activeArtist.id);
@@ -68,7 +85,11 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
 
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Booking request submitted:", values)
+    const submissionData = {
+        ...values,
+        eventTime: `${values.eventTime[0]}:00`,
+    }
+    console.log("Booking request submitted:", submissionData)
     toast({
       title: "Booking Request Sent!",
       description: "We'll get back to you soon.",
@@ -161,6 +182,97 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                   <FormControl>
                     <Input type="email" placeholder="your.email@example.com" {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="eventType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type of Event</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an event type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="private-party">Private Party</SelectItem>
+                        <SelectItem value="corporate-event">Corporate Event</SelectItem>
+                        <SelectItem value="festival">Festival</SelectItem>
+                        <SelectItem value="club-night">Club Night</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="eventDate"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date of Event</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-full pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="eventTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Hour of Event (24h format)</FormLabel>
+                   <FormControl>
+                    <Slider
+                        min={0}
+                        max={23}
+                        step={1}
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Selected time: {field.value?.[0]}:00
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
