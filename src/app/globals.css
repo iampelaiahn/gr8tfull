@@ -149,12 +149,14 @@ body {
         position: relative;
         flex-shrink: 0;
         left: 0%;
-        width: 70%;
+        width: 0; /* Hide non-active items */
         height: 100%;
         font-size: 15px;
+        opacity: 0; /* Hide non-active items */
         transition: left 0.5s, opacity 0.5s, width 0.5s;
+        overflow: hidden;
     }
-    
+
     .carousel.next .list {
       animation: slideNext 0.5s ease-in-out 1 forwards;
     }
@@ -163,7 +165,7 @@ body {
             transform: translateX(-50%);
         }
         to {
-            transform: translateX(calc(-50% - (70% + 20px)));
+            transform: translateX(calc(-50% - (100% + 20px))); /* Adjust for 100% width */
         }
     }
     
@@ -175,7 +177,7 @@ body {
             transform: translateX(-50%);
         }
         to{
-            transform: translateX(calc(-50% + (70% + 20px)));
+            transform: translateX(calc(-50% + (100% + 20px))); /* Adjust for 100% width */
         }
     }
 
@@ -187,6 +189,8 @@ body {
     .carousel .list .item:nth-child(2) {
         z-index: 10;
         transform: translateX(0);
+        width: 100%; /* Make active item full width */
+        opacity: 1; /* Make active item visible */
     }
 
     .carousel .list .item .introduce {

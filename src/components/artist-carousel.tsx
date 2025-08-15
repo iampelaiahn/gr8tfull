@@ -47,42 +47,29 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
     autoPlayTimeoutRef.current = setTimeout(() => {
       // This will be defined because handleNext is defined below and this function is called in useEffect
       (carouselRef.current?.querySelector('#next') as HTMLElement)?.click();
-    }, 5000); 
+    }, 7000); 
   }, []);
+
 
   const handleNext = useCallback(() => {
     if (listRef.current) {
       clearCarouselTimeout();
       clearAutoPlayTimeout();
       const list = listRef.current;
-      list.classList.add('next');
-      const firstChild = list.children[0];
-      list.appendChild(firstChild.cloneNode(true));
-      list.removeChild(firstChild);
+      list.appendChild(list.children[0]);
       setCurrentArtistIndex(prevIndex => (prevIndex + 1) % artists.length);
-      
-      timeoutRef.current = setTimeout(() => {
-        list.classList.remove('next');
-        runAutoPlay();
-      }, 500);
+      runAutoPlay();
     }
   }, [artists.length, runAutoPlay]);
-
+  
   const handlePrev = () => {
     if (listRef.current) {
         clearCarouselTimeout();
         clearAutoPlayTimeout();
         const list = listRef.current;
-        list.classList.add('prev');
-        const lastChild = list.children[list.children.length - 1];
-        list.prepend(lastChild.cloneNode(true));
-        list.removeChild(lastChild);
+        list.prepend(list.children[list.children.length - 1]);
         setCurrentArtistIndex(prevIndex => (prevIndex - 1 + artists.length) % artists.length);
-
-        timeoutRef.current = setTimeout(() => {
-          list.classList.remove('prev');
-          runAutoPlay();
-      }, 500);
+        runAutoPlay();
     }
   };
 
