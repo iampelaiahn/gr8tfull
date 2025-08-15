@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Artist } from '@/app/page';
+import QRCode from 'qrcode.react';
 
 type HeaderProps = {
   activeArtist: Artist;
@@ -17,7 +18,6 @@ const QRCodeGenerator = ({ text }: { text: string }) => {
   if (typeof window === 'undefined') {
     return <div className="w-48 h-48 bg-gray-200 animate-pulse" />;
   }
-  const QRCode = require('qrcode.react');
   return <QRCode value={text} size={192} />;
 };
 
