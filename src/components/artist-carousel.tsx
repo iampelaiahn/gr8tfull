@@ -75,6 +75,10 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
 
   const handleBack = () => {
     setShowDetail(false);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setPlayingTrack(null);
+    }
   };
   
   const togglePlay = (trackUrl: string) => {
