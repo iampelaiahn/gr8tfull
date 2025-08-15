@@ -1,10 +1,11 @@
 
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -25,16 +26,11 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Artist } from "@/app/page"
+import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -61,6 +57,15 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
       message: "",
     },
   })
+  
+  // Using useEffect to reactively update the form's default artist
+  // when the dialog is opened or the activeArtist changes.
+  useEffect(() => {
+    if (activeArtist) {
+      form.setValue('artist', activeArtist.id);
+    }
+  }, [activeArtist, form]);
+
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Booking request submitted:", values)
@@ -71,14 +76,6 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     setOpen(false)
     form.reset()
   }
-  
-  // Update default artist when active artist changes
-  useState(() => {
-    if (activeArtist) {
-        form.setValue('artist', activeArtist.id);
-    }
-  });
-
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -90,7 +87,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
           Book Now
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-background">
+      <DialogContent className="sm:max-w-lg bg-background">
         <DialogHeader>
           <DialogTitle>Book an Artist</DialogTitle>
           <DialogDescription>
@@ -99,6 +96,49 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="artist"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>Select an Artist</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="grid grid-cols-2 md:grid-cols-3 gap-4"
+                    >
+                      {artists.map((artist) => (
+                        <FormItem key={artist.id} className="space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value={artist.id} className="sr-only" />
+                          </FormControl>
+                          <FormLabel className={cn(
+                            "font-normal block rounded-md border-2 border-muted bg-popover p-2 hover:border-accent has-[[data-state=checked]]:border-primary",
+                            "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                          )}>
+                              <div className="relative aspect-square w-full mb-2 overflow-hidden rounded-sm">
+                                <Image
+                                  src={artist.imageUrl}
+                                  alt={artist.name}
+                                  fill
+                                  className="object-cover"
+                                  data-ai-hint={artist.imageHint}
+                                />
+                              </div>
+                              <span className="block text-center text-sm font-medium text-foreground">
+                                {artist.name}
+                              </span>
+                          </FormLabel>
+                        </FormItem>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
             <FormField
               control={form.control}
               name="name"
@@ -125,30 +165,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="artist"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Artist</FormLabel>
-                   <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an artist to book" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {artists.map((artist) => (
-                        <SelectItem key={artist.id} value={artist.id}>
-                          {artist.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            
             <FormField
               control={form.control}
               name="message"
