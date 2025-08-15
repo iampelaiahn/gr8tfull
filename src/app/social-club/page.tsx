@@ -102,7 +102,7 @@ export default function SocialClubPage() {
   }
 
   return (
-    <>
+    <Dialog onOpenChange={() => setSelectedProduct(null)}>
       <div className="flex flex-col min-h-screen bg-background text-foreground">
         <header className="sticky top-0 z-50 flex justify-between items-center p-4 bg-black/30 backdrop-blur-md border-b border-white/10">
           <Link href="/" className="logo text-3xl font-bold flex items-center gap-1.5">
@@ -178,43 +178,41 @@ export default function SocialClubPage() {
         </main>
       </div>
 
-       <Dialog onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="sm:max-w-md bg-background">
-          {selectedProduct && (
-             <>
-                <DialogHeader>
-                    <DialogTitle>{showConfirmation ? 'Thank You!' : `Purchase: ${selectedProduct.name}`}</DialogTitle>
-                     {!showConfirmation && <DialogDescription>Confirm your purchase details below.</DialogDescription>}
-                </DialogHeader>
+      <DialogContent className="sm:max-w-md bg-background">
+        {selectedProduct && (
+           <>
+              <DialogHeader>
+                  <DialogTitle>{showConfirmation ? 'Thank You!' : `Purchase: ${selectedProduct.name}`}</DialogTitle>
+                   {!showConfirmation && <DialogDescription>Confirm your purchase details below.</DialogDescription>}
+              </DialogHeader>
 
-                {showConfirmation ? (
-                    <div className="flex flex-col items-center justify-center text-center py-8">
-                        <CheckCircle className="h-24 w-24 text-green-500 animate-pulse" />
-                        <p className="text-lg mt-4 font-semibold">Your order is confirmed!</p>
-                        <p className="text-muted-foreground">You will receive an email shortly.</p>
-                    </div>
-                ) : (
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Item:</span>
-                            <span className="font-semibold">{selectedProduct.name}</span>
-                        </div>
-                         <div className="flex items-center justify-between">
-                            <span className="text-muted-foreground">Price:</span>
-                            <span className="font-semibold">${(selectedProduct as any).price.toFixed(2)}</span>
-                        </div>
-                        <Button onClick={handleConfirmPurchase} className="w-full">
-                           <CreditCard className="mr-2" /> Pay Now
-                        </Button>
-                    </div>
-                )}
-                <DialogTrigger asChild>
-                    <button id="close-dialog" className="hidden">Close</button>
-                </DialogTrigger>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-    </>
+              {showConfirmation ? (
+                  <div className="flex flex-col items-center justify-center text-center py-8">
+                      <CheckCircle className="h-24 w-24 text-green-500 animate-pulse" />
+                      <p className="text-lg mt-4 font-semibold">Your order is confirmed!</p>
+                      <p className="text-muted-foreground">You will receive an email shortly.</p>
+                  </div>
+              ) : (
+                  <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Item:</span>
+                          <span className="font-semibold">{selectedProduct.name}</span>
+                      </div>
+                       <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Price:</span>
+                          <span className="font-semibold">${(selectedProduct as any).price.toFixed(2)}</span>
+                      </div>
+                      <Button onClick={handleConfirmPurchase} className="w-full">
+                         <CreditCard className="mr-2" /> Pay Now
+                      </Button>
+                  </div>
+              )}
+              <DialogTrigger asChild>
+                  <button id="close-dialog" className="hidden">Close</button>
+              </DialogTrigger>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
