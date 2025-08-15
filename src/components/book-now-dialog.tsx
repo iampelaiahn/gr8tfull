@@ -52,7 +52,7 @@ const formSchema = z.object({
   eventDate: z.date({
     required_error: "An event date is required.",
   }),
-  eventTime: z.array(z.number()).min(1).max(1),
+  eventTime: z.array(z.number()).min(2).max(2),
   eventType: z.string().min(1, { message: "Please select an event type." }),
   message: z.string().optional(),
 })
@@ -72,7 +72,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
       name: "",
       email: "",
       artist: activeArtist?.id || "",
-      eventTime: [18], // Default to 6 PM
+      eventTime: [18, 20], // Default to 6 PM - 8 PM
       message: "",
     },
   })
@@ -87,7 +87,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
   function onSubmit(values: z.infer<typeof formSchema>) {
     const submissionData = {
         ...values,
-        eventTime: `${values.eventTime[0]}:00`,
+        eventTime: `${values.eventTime[0]}:00 - ${values.eventTime[1]}:00`,
     }
     console.log("Booking request submitted:", submissionData)
     toast({
@@ -260,7 +260,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
               name="eventTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Event Hour</FormLabel>
+                  <FormLabel>Event Time</FormLabel>
                    <FormControl>
                     <Slider
                         min={0}
@@ -271,7 +271,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                     />
                   </FormControl>
                   <FormDescription>
-                    Selected time: {field.value?.[0]}:00 (24h format)
+                    Selected time: {field.value?.[0]}:00 - {field.value?.[1]}:00 (24h format)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
