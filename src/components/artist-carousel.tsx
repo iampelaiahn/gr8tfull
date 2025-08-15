@@ -3,8 +3,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 import { Artist, Project } from '@/app/page';
 import SocialIcons from './social-icons';
 import { Button } from './ui/button';
@@ -18,6 +17,8 @@ type ArtistCarouselProps = {
 const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   const [showDetail, setShowDetail] = useState(false);
   const [currentArtistIndex, setCurrentArtistIndex] = useState(1);
+  const [playingTrack, setPlayingTrack] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -76,8 +77,27 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
     setShowDetail(false);
   };
   
+  const togglePlay = (trackUrl: string) => {
+    if (audioRef.current) {
+      if (playingTrack === trackUrl) {
+        audioRef.current.pause();
+        setPlayingTrack(null);
+      } else {
+        audioRef.current.src = trackUrl;
+        audioRef.current.play();
+        setPlayingTrack(trackUrl);
+      }
+    }
+  };
+  
   useEffect(() => {
-    return () => clearCarouselTimeout(); // Cleanup on unmount
+    const audio = audioRef.current;
+    const handleEnded = () => setPlayingTrack(null);
+    audio?.addEventListener('ended', handleEnded);
+    return () => {
+      audio?.removeEventListener('ended', handleEnded);
+      clearCarouselTimeout();
+    };
   }, []);
 
   const { from, to } = activeArtist.gradient;
@@ -92,6 +112,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
         ref={carouselRef}
         style={carouselStyle}
     >
+      <audio ref={audioRef} />
         <div className="list" ref={listRef}>
             {artists.map((artist) => (
                  <div
@@ -111,10 +132,15 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
                         <h4>Top Projects</h4>
                         <div className="project-grid">
                             {artist.projects.length > 0 ? artist.projects.map((project: Project, projIndex: number) => (
-                                <div key={projIndex} className="project-card">
+                                <div key={projIndex} className={cn("project-card", { 'playing': playingTrack === project.trackPreviewUrl })} onClick={() => project.trackPreviewUrl && togglePlay(project.trackPreviewUrl)}>
                                     <Image src={project.imageUrl} alt={project.title} width={120} height={120} data-ai-hint={project.imageHint}/>
                                     <h5>{project.title}</h5>
                                     <p>{project.type}</p>
+                                    {project.trackPreviewUrl && (
+                                        <div className="project-card-player-overlay">
+                                            {playingTrack === project.trackPreviewUrl ? <Pause size={32}/> : <Play size={32} />}
+                                        </div>
+                                    )}
                                 </div>
                             )) : <p>No projects yet.</p>}
                         </div>

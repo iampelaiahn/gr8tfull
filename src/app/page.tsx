@@ -14,6 +14,7 @@ export type Project = {
   type: string;
   imageUrl: string;
   imageHint: string;
+  trackPreviewUrl?: string;
 };
 
 export type SocialLinks = {
@@ -52,8 +53,8 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/7FDBFF/000000',
     imageHint: "man portrait",
     projects: [
-        { title: 'Genesis', type: 'Album', imageUrl: 'https://placehold.co/200x200/7FDBFF/000000', imageHint: 'abstract album art' },
-        { title: 'Vibes', type: 'Single', imageUrl: 'https://placehold.co/200x200/7FDBFF/ffffff', imageHint: 'colorful soundwaves' },
+        { title: 'Genesis', type: 'Album', imageUrl: 'https://placehold.co/200x200/7FDBFF/000000', imageHint: 'abstract album art', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
+        { title: 'Vibes', type: 'Single', imageUrl: 'https://placehold.co/200x200/7FDBFF/ffffff', imageHint: 'colorful soundwaves', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
     ],
     socials: { spotify: '#', instagram: '#', apple: '#', youtube: '#' },
     gradient: { from: 'hsl(var(--primary))', to: 'hsl(var(--accent))' },
@@ -67,7 +68,7 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/39CCCC/ffffff',
     imageHint: "futuristic art",
     projects: [
-        { title: 'Digital Dreams', type: 'EP', imageUrl: 'https://placehold.co/200x200/39CCCC/000000', imageHint: 'ai generated landscape' },
+        { title: 'Digital Dreams', type: 'EP', imageUrl: 'https://placehold.co/200x200/39CCCC/000000', imageHint: 'ai generated landscape', trackPreviewUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
         { title: 'Neural Net', type: 'Single', imageUrl: 'https://placehold.co/200x200/39CCCC/ffffff', imageHint: 'glowing brain network' },
     ],
     socials: { youtube: '#', twitter: '#', youtubemusic: '#' },

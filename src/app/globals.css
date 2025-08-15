@@ -423,6 +423,28 @@ body {
         text-align: center;
         padding: 10px;
         backdrop-filter: blur(4px);
+        cursor: pointer;
+        position: relative;
+    }
+    .project-card-player-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .project-card:hover .project-card-player-overlay {
+        opacity: 1;
+    }
+    .project-card.playing .project-card-player-overlay {
+        opacity: 1;
     }
     .project-card img {
         width: 100%;
@@ -524,5 +546,6 @@ body {
     .carousel.showDetail::before {
         transform: translate(-100%, -50%) rotate(90deg);
         filter: blur(130px);
+        animation: spotlight 15s ease-in-out infinite;
     }
 }
