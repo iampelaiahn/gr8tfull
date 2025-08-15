@@ -1,3 +1,4 @@
+
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
@@ -7,10 +8,11 @@ import SocialIcon from '@/components/social-icons';
 
 type ArtistCarouselProps = {
   artists: Artist[];
+  setArtists: React.Dispatch<React.SetStateAction<Artist[]>>;
+  setActiveArtist: React.Dispatch<React.SetStateAction<Artist>>;
 };
 
-export default function ArtistCarousel({ artists: initialArtists }: ArtistCarouselProps) {
-  const [artists, setArtists] = useState(initialArtists);
+export default function ArtistCarousel({ artists, setArtists, setActiveArtist }: ArtistCarouselProps) {
   const [carouselClass, setCarouselClass] = useState('');
   const [showDetail, setShowDetail] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -22,13 +24,6 @@ export default function ArtistCarousel({ artists: initialArtists }: ArtistCarous
       clearInterval(autoSlideInterval.current);
     }
   }, []);
-
-  const startAutoSlider = useCallback(() => {
-    stopAutoSlider();
-    autoSlideInterval.current = setInterval(() => {
-      handleSlide('next');
-    }, 6000);
-  }, [stopAutoSlider]);
 
   const handleSlide = useCallback((type: 'next' | 'prev') => {
     if (isAnimating) return;
@@ -44,12 +39,20 @@ export default function ArtistCarousel({ artists: initialArtists }: ArtistCarous
         } else {
           newArtists.unshift(newArtists.pop()!);
         }
+        setActiveArtist(newArtists[1]);
         return newArtists;
       });
       setCarouselClass('');
       setIsAnimating(false);
     }, 1100);
-  }, [isAnimating]);
+  }, [isAnimating, setArtists, setActiveArtist]);
+
+  const startAutoSlider = useCallback(() => {
+    stopAutoSlider();
+    autoSlideInterval.current = setInterval(() => {
+      handleSlide('next');
+    }, 6000);
+  }, [stopAutoSlider, handleSlide]);
   
   const handleSeeMore = () => {
     setShowDetail(true);

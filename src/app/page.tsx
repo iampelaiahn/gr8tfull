@@ -1,10 +1,12 @@
+
+"use client";
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Header from '@/components/header';
 import ArtistCarousel from '@/components/artist-carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
-import { Button } from '@/components/ui/button';
-import { Wand2 } from 'lucide-react';
 
 export type Project = {
   title: string;
@@ -36,7 +38,7 @@ export type Artist = {
   socials: SocialLinks;
 };
 
-const artists: Artist[] = [
+const artistsData: Artist[] = [
   {
     id: 'nobody',
     name: 'Nobody',
@@ -128,12 +130,19 @@ const artists: Artist[] = [
 ];
 
 export default function Home() {
-  const today = new Date();
-  const dateString = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', year: 'numeric' });
+  const [artists, setArtists] = useState(artistsData);
+  const [activeArtist, setActiveArtist] = useState(artists[1]);
+  const [dateString, setDateString] = useState('');
+
+  useState(() => {
+    const today = new Date();
+    setDateString(today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', year: 'numeric' }));
+  });
+
 
   return (
     <div className="hero-section min-h-screen flex flex-col p-5 md:p-10 box-border" id="home">
-      <Header />
+      <Header activeArtist={activeArtist} />
       <main className="hero-content flex-grow flex flex-col pt-8">
         <div className="content-section mb-10" id="producers">
           <div className="content-header flex justify-between items-center mb-5 flex-wrap gap-4">
@@ -143,7 +152,7 @@ export default function Home() {
             </div>
             <AIPrioritizationDialog artists={artists.map(a => a.name)} />
           </div>
-          <ArtistCarousel artists={artists} />
+          <ArtistCarousel artists={artists} setArtists={setArtists} setActiveArtist={setActiveArtist} />
         </div>
 
         <div className="content-section" id="events">
