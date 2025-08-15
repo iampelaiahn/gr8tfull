@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Header from '@/components/header';
 import { Card, CardContent } from '@/components/ui/card';
 import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
+import ArtistCarousel from '@/components/artist-carousel';
 
 export type Project = {
   title: string;
@@ -116,7 +117,7 @@ const artistsData: Artist[] = [
     socials: { youtube: '#' },
   },
   {
-    id: 'inverse',
+    id: '!NV3RC3',
     name: '!NV3RC3',
     title: 'Mastermind',
     description: 'The visionary strategist behind the scenes.',
@@ -171,13 +172,15 @@ export default function Home() {
     setDateString(today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', year: 'numeric' }));
   }, []);
 
-
   return (
     <div className="hero-section min-h-screen flex flex-col p-5 md:p-10 box-border" id="home">
       <Header activeArtist={activeArtist} artists={artists} />
       <main className="hero-content flex-grow flex flex-col pt-8">
+
+        <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
+
         <div className="content-section mb-10" id="producers">
-          <div className="content-header flex justify-between items-center mb-5 flex-wrap gap-4">
+           <div className="content-header flex justify-between items-center mb-5 flex-wrap gap-4">
             <div>
               <h2 className="text-2xl m-0">Meet our Producers</h2>
               <p className="text-muted-foreground m-0">{dateString}</p>
