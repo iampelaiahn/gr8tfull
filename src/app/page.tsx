@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Header from '@/components/header';
 import ArtistCarousel from '@/components/artist-carousel';
@@ -134,15 +134,15 @@ export default function Home() {
   const [activeArtist, setActiveArtist] = useState(artists[1]);
   const [dateString, setDateString] = useState('');
 
-  useState(() => {
+  useEffect(() => {
     const today = new Date();
     setDateString(today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', year: 'numeric' }));
-  });
+  }, []);
 
 
   return (
     <div className="hero-section min-h-screen flex flex-col p-5 md:p-10 box-border" id="home">
-      <Header activeArtist={activeArtist} />
+      <Header activeArtist={activeArtist} artists={artists} />
       <main className="hero-content flex-grow flex flex-col pt-8">
         <div className="content-section mb-10" id="producers">
           <div className="content-header flex justify-between items-center mb-5 flex-wrap gap-4">

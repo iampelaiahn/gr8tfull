@@ -9,9 +9,11 @@ import Link from 'next/link';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Artist } from '@/app/page';
 import QRCode from 'qrcode.react';
+import BookNowDialog from './book-now-dialog';
 
 type HeaderProps = {
   activeArtist: Artist;
+  artists: Artist[];
 };
 
 const QRCodeGenerator = ({ text }: { text: string }) => {
@@ -21,11 +23,11 @@ const QRCodeGenerator = ({ text }: { text: string }) => {
   return <QRCode value={text} size={192} />;
 };
 
-export default function Header({ activeArtist }: HeaderProps) {
+export default function Header({ activeArtist, artists }: HeaderProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
 
-  const navLinks = ['Home', 'Social Club', 'Events', 'Book Now'];
+  const navLinks = ['Home', 'Social Club', 'Events'];
 
   const handleQrCodeClick = () => {
     if (typeof window !== 'undefined') {
@@ -43,7 +45,7 @@ export default function Header({ activeArtist }: HeaderProps) {
         </div>
       </div>
       <nav className="hidden lg:block">
-        <ul className="flex gap-2.5 list-none m-0 p-1.5 bg-black/50 rounded-2xl">
+        <ul className="flex items-center gap-2.5 list-none m-0 p-1.5 bg-black/50 rounded-2xl">
           {navLinks.map((link) => (
             <li key={link}>
               <Link
@@ -57,6 +59,9 @@ export default function Header({ activeArtist }: HeaderProps) {
               </Link>
             </li>
           ))}
+          <li>
+            <BookNowDialog artists={artists} activeArtist={activeArtist} />
+          </li>
         </ul>
       </nav>
       <div className="header-right flex items-center gap-5">
