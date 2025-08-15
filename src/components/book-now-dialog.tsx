@@ -114,10 +114,10 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                             <RadioGroupItem value={artist.id} className="sr-only" />
                           </FormControl>
                           <FormLabel className={cn(
-                            "font-normal block rounded-md border-2 border-muted bg-popover p-2 hover:border-accent has-[[data-state=checked]]:border-primary",
+                            "font-normal block rounded-full border-2 border-muted bg-popover p-2 hover:border-accent has-[[data-state=checked]]:border-primary",
                             "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                           )}>
-                              <div className="relative aspect-square w-full mb-2 overflow-hidden rounded-sm">
+                              <div className="relative aspect-square w-full mb-2 overflow-hidden rounded-full">
                                 <Image
                                   src={artist.imageUrl}
                                   alt={artist.name}
