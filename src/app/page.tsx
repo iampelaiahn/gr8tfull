@@ -216,6 +216,38 @@ export default function Home() {
 
         <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
         
+        <div className="content-section" id="events">
+          <div className="content-header mb-5">
+            <div>
+              <h2 className="text-2xl m-0">Events</h2>
+            </div>
+          </div>
+          <div className="content-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[450px]">
+            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/BE1AD6/000000')"}} data-ai-hint="new album">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <CardContent className="relative z-10 p-0">
+                    <h3 className="text-3xl m-0 mb-2 leading-tight">New Album Drop: "Nobody"</h3>
+                    <p className="text-muted-foreground">Listen to the new album from the founder, out now!</p>
+                </CardContent>
+            </Card>
+            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/FF851B/000000')"}} data-ai-hint="new podcast">
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <CardContent className="relative z-10 p-0">
+                    <h3 className="text-3xl m-0 mb-2 leading-tight">Podcast Ep. 5 with Jintzu Okzki</h3>
+                    <p className="text-muted-foreground">A deep dive into the art of sound design.</p>
+                </CardContent>
+            </Card>
+            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/3d9970/ffffff')"}} data-ai-hint="live event">
+                <div className="live-badge absolute top-5 left-5 bg-red-600 text-white py-1 px-3 rounded-lg text-sm font-bold z-10">LIVE NOW</div>
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <CardContent className="relative z-10 p-0">
+                    <h3 className="text-3xl m-0 mb-2 leading-tight">imnotfamous Live Set</h3>
+                    <p className="text-muted-foreground">Streaming live from our studio.</p>
+                </CardContent>
+            </Card>
+          </div>
+        </div>
+
         <div className="content-section py-16" id="dedications">
           <div className="content-header mb-8 text-center">
             <h2 className="text-4xl m-0">Dedications</h2>
@@ -266,38 +298,6 @@ export default function Home() {
               <CardContent>
                  <p className="text-foreground/80">"To every listener, supporter, and collaborator. You are the heartbeat of this journey. This is for you, always."</p>
               </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        <div className="content-section" id="events">
-          <div className="content-header mb-5">
-            <div>
-              <h2 className="text-2xl m-0">Events</h2>
-            </div>
-          </div>
-          <div className="content-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 min-h-[450px]">
-            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/BE1AD6/000000')"}} data-ai-hint="new album">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <CardContent className="relative z-10 p-0">
-                    <h3 className="text-3xl m-0 mb-2 leading-tight">New Album Drop: "Nobody"</h3>
-                    <p className="text-muted-foreground">Listen to the new album from the founder, out now!</p>
-                </CardContent>
-            </Card>
-            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/FF851B/000000')"}} data-ai-hint="new podcast">
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <CardContent className="relative z-10 p-0">
-                    <h3 className="text-3xl m-0 mb-2 leading-tight">Podcast Ep. 5 with Jintzu Okzki</h3>
-                    <p className="text-muted-foreground">A deep dive into the art of sound design.</p>
-                </CardContent>
-            </Card>
-            <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/3d9970/ffffff')"}} data-ai-hint="live event">
-                <div className="live-badge absolute top-5 left-5 bg-red-600 text-white py-1 px-3 rounded-lg text-sm font-bold z-10">LIVE NOW</div>
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                <CardContent className="relative z-10 p-0">
-                    <h3 className="text-3xl m-0 mb-2 leading-tight">imnotfamous Live Set</h3>
-                    <p className="text-muted-foreground">Streaming live from our studio.</p>
-                </CardContent>
             </Card>
           </div>
         </div>

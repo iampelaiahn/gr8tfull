@@ -30,8 +30,8 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
   const navLinks = [
     { name: 'Home', href: '/#home' },
     { name: 'Social Club', href: '/social-club'},
+    { name: 'Events', href: '/#events' },
     { name: 'Dedications', href: '/#dedications' },
-    { name: 'Events', href: '/#events' }
   ];
 
   const handleQrCodeClick = () => {
