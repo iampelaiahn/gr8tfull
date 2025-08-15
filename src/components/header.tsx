@@ -27,13 +27,27 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [qrCodeUrl, setQrCodeUrl] = useState('');
 
-  const navLinks = ['Home', 'Dedications', 'Events'];
+  const navLinks = [
+    { name: 'Home', href: '/#home' },
+    { name: 'Social Club', href: '/social-club'},
+    { name: 'Dedications', href: '/#dedications' },
+    { name: 'Events', href: '/#events' }
+  ];
 
   const handleQrCodeClick = () => {
     if (typeof window !== 'undefined') {
         setQrCodeUrl(`${window.location.origin}/#producers?artist=${activeArtist.id}`);
     }
   };
+
+  const handleNavClick = (name: string) => {
+    // Only set active link for on-page navigation
+    if (name === 'Home' || name === 'Dedications' || name === 'Events') {
+      setActiveLink(name);
+    } else {
+      setActiveLink(''); // Reset for external pages
+    }
+  }
 
   return (
     <header className="main-header sticky top-5 z-50 flex flex-col md:flex-row justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10">
@@ -47,15 +61,15 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
       <nav className="hidden lg:block">
         <ul className="flex items-center gap-2.5 list-none m-0 p-1.5 bg-black/50 rounded-2xl">
           {navLinks.map((link) => (
-            <li key={link}>
+            <li key={link.name}>
               <Link
-                href={`#${link.toLowerCase().replace(' ', '')}`}
-                onClick={() => setActiveLink(link)}
+                href={link.href}
+                onClick={() => handleNavClick(link.name)}
                 className={`px-4 py-2 rounded-xl transition-colors duration-300 cursor-pointer ${
-                  activeLink === link ? 'bg-background' : ''
+                  activeLink === link.name ? 'bg-background' : ''
                 }`}
               >
-                {link}
+                {link.name}
               </Link>
             </li>
           ))}
