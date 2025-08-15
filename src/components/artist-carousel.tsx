@@ -22,22 +22,38 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const activeArtist = artists[currentArtistIndex];
 
   useEffect(() => {
     onArtistChange(activeArtist);
   }, [activeArtist, onArtistChange]);
-
+  
   const clearCarouselTimeout = () => {
     if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
     }
   };
 
+  const clearAutoPlayTimeout = () => {
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+    }
+  };
+
+  const runAutoPlay = useCallback(() => {
+    clearAutoPlayTimeout();
+    autoPlayTimeoutRef.current = setTimeout(() => {
+      // This will be defined because handleNext is defined below and this function is called in useEffect
+      (carouselRef.current?.querySelector('#next') as HTMLElement)?.click();
+    }, 5000); 
+  }, []);
+
   const handleNext = useCallback(() => {
     if (listRef.current) {
       clearCarouselTimeout();
+      clearAutoPlayTimeout();
       const list = listRef.current;
       list.classList.add('next');
       const firstChild = list.children[0];
@@ -47,13 +63,15 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
       
       timeoutRef.current = setTimeout(() => {
         list.classList.remove('next');
+        runAutoPlay();
       }, 500);
     }
-  }, [artists.length]);
+  }, [artists.length, runAutoPlay]);
 
   const handlePrev = () => {
     if (listRef.current) {
         clearCarouselTimeout();
+        clearAutoPlayTimeout();
         const list = listRef.current;
         list.classList.add('prev');
         const lastChild = list.children[list.children.length - 1];
@@ -63,11 +81,13 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
 
         timeoutRef.current = setTimeout(() => {
           list.classList.remove('prev');
+          runAutoPlay();
       }, 500);
     }
   };
 
   const handleSeeMore = (artist: Artist) => {
+    clearAutoPlayTimeout();
     const artistToShowIndex = artists.findIndex(a => a.id === artist.id);
     setCurrentArtistIndex(artistToShowIndex);
     setShowDetail(true);
@@ -79,6 +99,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
       audioRef.current.pause();
       setPlayingTrack(null);
     }
+    runAutoPlay();
   };
   
   const togglePlay = (trackUrl: string) => {
@@ -95,14 +116,18 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   };
   
   useEffect(() => {
+    runAutoPlay();
+
     const audio = audioRef.current;
     const handleEnded = () => setPlayingTrack(null);
     audio?.addEventListener('ended', handleEnded);
+
     return () => {
       audio?.removeEventListener('ended', handleEnded);
       clearCarouselTimeout();
+      clearAutoPlayTimeout();
     };
-  }, []);
+  }, [runAutoPlay]);
 
   const { from, to } = activeArtist.gradient;
   const carouselStyle = {
