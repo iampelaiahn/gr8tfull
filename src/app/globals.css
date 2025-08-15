@@ -496,9 +496,22 @@ body {
         left: 50%;
         transform: translate(-10%, -50%);
         transition: 1s;
+        animation: spotlight 15s ease-in-out infinite;
     }
+    
+    @keyframes spotlight {
+        0% { transform: translate(-10%, -50%) rotate(0deg); }
+        25% { transform: translate(-50%, -20%) rotate(45deg); }
+        50% { transform: translate(-90%, -50%) rotate(90deg); }
+        75% { transform: translate(-50%, -80%) rotate(135deg); }
+        100% { transform: translate(-10%, -50%) rotate(180deg); }
+    }
+
     .carousel.showDetail::before {
         transform: translate(-100%, -50%) rotate(90deg);
         filter: blur(130px);
+        animation: none; /* Disable spotlight on detail view */
     }
 }
+
+    
