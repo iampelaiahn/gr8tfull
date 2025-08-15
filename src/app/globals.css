@@ -355,21 +355,25 @@ body {
     
     .carousel.showDetail .list .item:nth-child(2) {
         width: 100%;
+        height: 100%;
     }
     
     .carousel.showDetail .list .item:nth-child(2) img {
-        right: 50%;
+        left: 50%;
+        right: auto;
+        transform: translateY(-50%) scale(1.15);
+        transition: left 1s, transform 1s;
     }
     .carousel.showDetail .list .item:nth-child(2) .detail {
         opacity: 1;
-        width: 45%; /* Adjusted width */
+        width: 45%;
         position: absolute;
-        right: 0;
+        left: 0;
         top: 50%;
         transform: translateY(-50%);
         text-align: left;
         pointer-events: auto;
-        padding-right: 20px;
+        padding-left: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -523,3 +527,5 @@ body {
         animation: none; /* Disable spotlight on detail view */
     }
 }
+
+    
