@@ -107,7 +107,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
                     <div className="detail">
                         <div className="title">{artist.name}</div>
                         <div className="des">{artist.longDescription}</div>
-                        <SocialIcons socials={artist.socials} />
+                        <SocialIcons socials={artist.socials} className="social-links" />
                         <h4>Top Projects</h4>
                         <div className="project-grid">
                             {artist.projects.length > 0 ? artist.projects.map((project: Project, projIndex: number) => (

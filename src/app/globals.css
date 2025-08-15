@@ -370,30 +370,34 @@ body {
         text-align: left;
         pointer-events: auto;
         padding-right: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
     }
     .carousel.showDetail .list .item:nth-child(2) .detail .title {
         font-size: 3em;
+        line-height: 1.1;
+        margin-bottom: 10px;
     }
     .carousel.showDetail .list .item:nth-child(2) .detail .des {
         margin-bottom: 20px;
+        color: var(--muted-foreground);
+        font-size: 0.9rem;
+        max-width: 90%;
     }
 
     .detail h4 {
         margin-top: 20px;
         margin-bottom: 10px;
-        border-bottom: 1px solid var(--secondary-text-color);
+        border-bottom: 1px solid var(--border);
         padding-bottom: 5px;
+        font-size: 1.2rem;
     }
-    .detail ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .detail ul li {
-        margin-bottom: 5px;
-    }
+
     .social-links {
-        margin-top: 20px;
+        margin-top: 15px;
+        margin-bottom: 15px;
         display: flex;
         gap: 15px;
     }
@@ -408,11 +412,13 @@ body {
         margin-top: 10px;
     }
     .project-card {
-        background-color: var(--card-background);
+        background-color: hsl(var(--card) / 0.5);
+        border: 1px solid hsl(var(--border) / 0.5);
         border-radius: 10px;
         overflow: hidden;
         text-align: center;
         padding: 10px;
+        backdrop-filter: blur(4px);
     }
     .project-card img {
         width: 100%;
@@ -426,25 +432,29 @@ body {
     }
     .project-card p {
         font-size: 0.8rem;
-        color: var(--secondary-text-color);
+        color: var(--muted-foreground);
         margin: 0;
     }
 
     .carousel.showDetail .list .item:nth-child(2) .detail .title,
     .carousel.showDetail .list .item:nth-child(2) .detail .des,
-    .carousel.showDetail .list .item:nth-child(2) .detail .specifications,
-    .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
+    .carousel.showDetail .list .item:nth-child(2) .detail .social-links,
+    .carousel.showDetail .list .item:nth-child(2) .detail h4,
+    .carousel.showDetail .list .item:nth-child(2) .detail .project-grid {
         opacity: 0;
-        animation: showContent 0.5s 1s ease-in-out 1 forwards;
+        animation: showContent 0.5s ease-in-out forwards;
     }
     .carousel.showDetail .list .item:nth-child(2) .detail .des {
-        animation-delay: 1.2s;
+        animation-delay: 0.2s;
     }
-    .carousel.showDetail .list .item:nth-child(2) .detail .specifications {
-        animation-delay: 1.4s;
+    .carousel.showDetail .list .item:nth-child(2) .detail .social-links {
+        animation-delay: 0.4s;
     }
-    .carousel.showDetail .list .item:nth-child(2) .detail .checkout {
-        animation-delay: 1.6s;
+     .carousel.showDetail .list .item:nth-child(2) .detail h4 {
+        animation-delay: 0.6s;
+    }
+    .carousel.showDetail .list .item:nth-child(2) .detail .project-grid {
+        animation-delay: 0.8s;
     }
 
     .arrows {
@@ -513,5 +523,3 @@ body {
         animation: none; /* Disable spotlight on detail view */
     }
 }
-
-    
