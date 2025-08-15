@@ -11,6 +11,7 @@ const socialIconMap: { [key: string]: React.ElementType } = {
   spotify: (props) => <svg {...props} role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Spotify</title><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.842 17.842a.6.6 0 0 1-.84.204c-2.368-1.44-5.34-1.764-8.892-.96a.6.6 0 0 1-.684-.588.6.6 0 0 1 .588-.684c3.84-.864 7.104-.504 9.708 1.104a.6.6 0 0 1 .204.84zm1.26-2.736a.75.75 0 0 1-1.05.252c-2.7-1.668-6.756-2.124-9.936-1.164a.75.75 0 0 1-.84-.708.75.75 0 0 1 .708-.84c3.552-.996 7.944-.492 11.016 1.416a.75.75 0 0 1 .252 1.05zm.132-2.904c-3.216-1.92-8.568-2.064-11.664-1.14a.9.9 0 0 1-1.008-.864.9.9 0 0 1 .864-1.008c3.492-.996 9.384-.816 12.996 1.356a.9.9 0 0 1 .444 1.188.9.9 0 0 1-1.188.444z" fill="currentColor"/></svg>,
   instagram: Instagram,
   youtube: Youtube,
+  youtubemusic: Disc,
   twitter: Twitter,
   mixcloud: Mic,
   soundcloud: Music,
@@ -48,3 +49,5 @@ const SocialIcons = ({ socials, className }: SocialIconsProps) => {
 };
 
 export default SocialIcons;
+
+    
