@@ -9,10 +9,11 @@ import SocialIcon from '@/components/social-icons';
 type ArtistCarouselProps = {
   artists: Artist[];
   setArtists: React.Dispatch<React.SetStateAction<Artist[]>>;
+  activeArtist: Artist;
   setActiveArtist: React.Dispatch<React.SetStateAction<Artist>>;
 };
 
-export default function ArtistCarousel({ artists, setArtists, setActiveArtist }: ArtistCarouselProps) {
+export default function ArtistCarousel({ artists, setArtists, activeArtist, setActiveArtist }: ArtistCarouselProps) {
   const [carouselClass, setCarouselClass] = useState('');
   const [showDetail, setShowDetail] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -71,8 +72,6 @@ export default function ArtistCarousel({ artists, setArtists, setActiveArtist }:
       if (animationTimeout.current) clearTimeout(animationTimeout.current);
     };
   }, [startAutoSlider, stopAutoSlider]);
-
-  const activeArtist = artists[1];
 
   return (
     <div className={`carousel ${carouselClass} ${showDetail ? 'showDetail' : ''}`}>

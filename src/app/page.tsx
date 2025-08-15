@@ -147,7 +147,7 @@ const artistsData: Artist[] = [
     imageUrl: 'https://placehold.co/600x800/00008B/ffffff',
     imageHint: "binary code",
     projects: [],
-    socials: { github: '#', twitter: '#' },
+    socials: { twitter: '#' },
   },
   {
     id: 'groove-guardian',
@@ -185,7 +185,7 @@ export default function Home() {
             </div>
             <AIPrioritizationDialog artists={artists.map(a => a.name)} />
           </div>
-          <ArtistCarousel artists={artists} setArtists={setArtists} setActiveArtist={setActiveArtist} />
+          <ArtistCarousel artists={artists} setArtists={setArtists} activeArtist={activeArtist} setActiveArtist={setActiveArtist} />
         </div>
 
         <div className="content-section" id="events">
@@ -223,5 +223,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
