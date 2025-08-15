@@ -215,29 +215,6 @@ export default function Home() {
 
         <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
 
-        <div className="content-section mb-10" id="producers">
-           <div className="content-header flex justify-between items-center mb-5 flex-wrap gap-4">
-            <div>
-              <h2 className="text-2xl m-0">Meet our Producers</h2>
-              <p className="text-muted-foreground m-0">{dateString}</p>
-            </div>
-            <AIPrioritizationDialog artists={artists.map(a => a.name)} />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {artists.map((artist) => (
-              <Card key={artist.id} className="bg-card border-border/20">
-                <CardContent className="p-0">
-                  <Image src={artist.imageUrl} alt={artist.name} width={600} height={800} className="rounded-t-lg object-cover aspect-[4/5]" data-ai-hint={artist.imageHint} />
-                  <div className="p-4">
-                    <h3 className="font-bold text-lg">{artist.name}</h3>
-                    <p className="text-muted-foreground text-sm">{artist.title}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
         <div className="content-section" id="events">
           <div className="content-header mb-5">
             <div>
@@ -273,5 +250,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
