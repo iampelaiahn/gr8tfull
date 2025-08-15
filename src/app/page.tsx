@@ -127,6 +127,39 @@ const artistsData: Artist[] = [
     projects: [],
     socials: { twitter: '#' },
   },
+  {
+    id: 'luna-flare',
+    name: 'Luna Flare',
+    title: 'Vocalist & Songwriter',
+    description: 'Weaving melodies that capture the heart.',
+    longDescription: 'A vocalist and songwriter with a hauntingly beautiful voice and a knack for storytelling.',
+    imageUrl: 'https://placehold.co/600x800/FF69B4/ffffff',
+    imageHint: "female vocalist",
+    projects: [],
+    socials: { spotify: '#', instagram: '#' },
+  },
+  {
+    id: 'code-maestro',
+    name: 'Code Maestro',
+    title: 'Algorithmic Composer',
+    description: 'Generating beats with pure logic.',
+    longDescription: 'A programmer and musician who creates complex soundscapes using algorithms and code.',
+    imageUrl: 'https://placehold.co/600x800/00008B/ffffff',
+    imageHint: "binary code",
+    projects: [],
+    socials: { github: '#', twitter: '#' },
+  },
+  {
+    id: 'groove-guardian',
+    name: 'Groove Guardian',
+    title: 'Funk & Soul Bassist',
+    description: 'Laying down the foundation for dance.',
+    longDescription: 'A master of the bass guitar, bringing funk and soul to every track.',
+    imageUrl: 'https://placehold.co/600x800/800080/ffffff',
+    imageHint: "bass guitar",
+    projects: [],
+    socials: { bandcamp: '#', youtube: '#' },
+  }
 ];
 
 export default function Home() {
@@ -190,3 +223,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
