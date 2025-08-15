@@ -1,14 +1,13 @@
 
 "use client"
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Artist, Project } from '@/app/page';
 import SocialIcons from './social-icons';
 import { Button } from './ui/button';
-import BookNowDialog from './book-now-dialog';
 import { cn } from '@/lib/utils';
 
 type ArtistCarouselProps = {
@@ -18,9 +17,10 @@ type ArtistCarouselProps = {
 
 const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   const [showDetail, setShowDetail] = useState(false);
-  const [currentArtistIndex, setCurrentArtistIndex] = useState(1); // Start with the second item as active
+  const [currentArtistIndex, setCurrentArtistIndex] = useState(1);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const listRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const activeArtist = artists[currentArtistIndex];
 
@@ -28,54 +28,75 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
     onArtistChange(activeArtist);
   }, [activeArtist, onArtistChange]);
 
-  const handleNext = () => {
-    if (carouselRef.current) {
-        carouselRef.current.classList.remove('prev');
-        carouselRef.current.classList.add('next');
-        const lastItem = itemsRef.current.shift();
-        if(lastItem) itemsRef.current.push(lastItem);
-
-        // Update the DOM structure
-        const list = carouselRef.current.querySelector('.list');
-        if (list) {
-            const firstChild = list.children[0];
-            list.appendChild(firstChild);
-        }
+  const clearCarouselTimeout = () => {
+    if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
     }
   };
 
+  const handleNext = useCallback(() => {
+    if (listRef.current) {
+      clearCarouselTimeout();
+      const list = listRef.current;
+      list.classList.add('next');
+      const firstChild = list.children[0];
+      list.appendChild(firstChild.cloneNode(true));
+      list.removeChild(firstChild);
+      setCurrentArtistIndex(prevIndex => (prevIndex + 1) % artists.length);
+      
+      timeoutRef.current = setTimeout(() => {
+        list.classList.remove('next');
+      }, 500);
+    }
+  }, [artists.length]);
+
   const handlePrev = () => {
-    if (carouselRef.current) {
-        carouselRef.current.classList.remove('next');
-        carouselRef.current.classList.add('prev');
-        const firstItem = itemsRef.current.pop();
-        if(firstItem) itemsRef.current.unshift(firstItem);
-         // Update the DOM structure
-         const list = carouselRef.current.querySelector('.list');
-         if (list) {
-             const lastChild = list.children[list.children.length - 1];
-             list.prepend(lastChild);
-         }
+    if (listRef.current) {
+        clearCarouselTimeout();
+        const list = listRef.current;
+        list.classList.add('prev');
+        const lastChild = list.children[list.children.length - 1];
+        list.prepend(lastChild.cloneNode(true));
+        list.removeChild(lastChild);
+        setCurrentArtistIndex(prevIndex => (prevIndex - 1 + artists.length) % artists.length);
+
+        timeoutRef.current = setTimeout(() => {
+          list.classList.remove('prev');
+      }, 500);
     }
   };
 
   const handleSeeMore = (artist: Artist) => {
-    setCurrentArtistIndex(artists.findIndex(a => a.id === artist.id));
+    const artistToShowIndex = artists.findIndex(a => a.id === artist.id);
+    setCurrentArtistIndex(artistToShowIndex);
     setShowDetail(true);
   };
 
   const handleBack = () => {
     setShowDetail(false);
   };
+  
+  useEffect(() => {
+    return () => clearCarouselTimeout(); // Cleanup on unmount
+  }, []);
+
+  const { from, to } = activeArtist.gradient;
+  const carouselStyle = {
+    '--gradient-from': from,
+    '--gradient-to': to,
+  } as React.CSSProperties;
 
   return (
-    <div className={cn("carousel", { 'showDetail': showDetail })} ref={carouselRef}>
-        <div className="list">
-            {artists.map((artist, index) => (
+    <div 
+        className={cn("carousel", { 'showDetail': showDetail })} 
+        ref={carouselRef}
+        style={carouselStyle}
+    >
+        <div className="list" ref={listRef}>
+            {artists.map((artist) => (
                  <div
                     key={artist.id}
                     className="item"
-                    ref={el => itemsRef.current[index] = el}
                  >
                     <div className="introduce">
                         <div className="title">{artist.title}</div>

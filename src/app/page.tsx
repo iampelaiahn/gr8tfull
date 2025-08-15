@@ -39,6 +39,7 @@ export type Artist = {
   imageHint: string;
   projects: Project[];
   socials: SocialLinks;
+  gradient: { from: string; to: string };
 };
 
 const artistsData: Artist[] = [
@@ -55,6 +56,7 @@ const artistsData: Artist[] = [
         { title: 'Vibes', type: 'Single', imageUrl: 'https://placehold.co/200x200/7FDBFF/ffffff', imageHint: 'colorful soundwaves' },
     ],
     socials: { spotify: '#', instagram: '#', apple: '#', youtube: '#' },
+    gradient: { from: 'hsl(var(--primary))', to: 'hsl(var(--accent))' },
   },
   {
     id: 'ai-souxid3',
@@ -69,6 +71,7 @@ const artistsData: Artist[] = [
         { title: 'Neural Net', type: 'Single', imageUrl: 'https://placehold.co/200x200/39CCCC/ffffff', imageHint: 'glowing brain network' },
     ],
     socials: { youtube: '#', twitter: '#', youtubemusic: '#' },
+    gradient: { from: '#39CCCC', to: '#001f3f' },
   },
   {
     id: 'imnotfamous',
@@ -83,6 +86,7 @@ const artistsData: Artist[] = [
         { title: 'Rinse Out', type: 'Live Set', imageUrl: 'https://placehold.co/200x200/3D9970/ffffff', imageHint: 'crowd cheering' },
     ],
     socials: { mixcloud: '#', soundcloud: '#', audiomack: '#' },
+    gradient: { from: '#3D9970', to: '#01FF70' },
   },
   {
     id: 'dontworry',
@@ -97,6 +101,7 @@ const artistsData: Artist[] = [
         { title: 'Breathe', type: 'Single', imageUrl: 'https://placehold.co/200x200/2ECC40/ffffff', imageHint: 'soft clouds' },
     ],
     socials: { apple: '#', spotify: '#' },
+    gradient: { from: '#2ECC40', to: '#FFFFFF' },
   },
   {
     id: 'jintzu-okkzki',
@@ -111,6 +116,7 @@ const artistsData: Artist[] = [
         { title: 'The Mentor', type: 'Documentary', imageUrl: 'https://placehold.co/200x200/FFDC00/ffffff', imageHint: 'old studio photo' },
     ],
     socials: { bandcamp: '#', youtube: '#' },
+    gradient: { from: '#FFDC00', to: '#FF851B' },
   },
   {
     id: 'dj-local',
@@ -125,6 +131,7 @@ const artistsData: Artist[] = [
         { title: 'Summer Jams', type: 'Playlist', imageUrl: 'https://placehold.co/200x200/FF851B/ffffff', imageHint: 'beach sunset' },
     ],
     socials: { soundcloud: '#', instagram: '#' },
+    gradient: { from: '#FF851B', to: '#FF4136' },
   },
   {
     id: 'micheal',
@@ -139,6 +146,7 @@ const artistsData: Artist[] = [
         { title: 'Metamorphosis', type: 'Visual EP', imageUrl: 'https://placehold.co/200x200/F012BE/ffffff', imageHint: 'butterfly abstract' },
     ],
     socials: { youtube: '#', bandcamp: '#' },
+    gradient: { from: '#F012BE', to: '#B10DC9' },
   },
   {
     id: '!NV3RC3',
@@ -153,6 +161,7 @@ const artistsData: Artist[] = [
         { title: 'Vision', type: 'Concept Album', imageUrl: 'https://placehold.co/200x200/B10DC9/ffffff', imageHint: 'crystal ball' },
     ],
     socials: { twitter: '#' },
+    gradient: { from: '#B10DC9', to: '#85144b' },
   },
   {
     id: 'luna-flare',
@@ -167,6 +176,7 @@ const artistsData: Artist[] = [
         { title: 'Echoes', type: 'Acoustic EP', imageUrl: 'https://placehold.co/200x200/FF69B4/ffffff', imageHint: 'guitar silhouette' },
     ],
     socials: { spotify: '#', instagram: '#', youtubemusic: '#' },
+    gradient: { from: '#FF69B4', to: '#FFB6C1' },
   },
   {
     id: 'code-maestro',
@@ -181,6 +191,7 @@ const artistsData: Artist[] = [
         { title: 'Recursion', type: 'Single', imageUrl: 'https://placehold.co/200x200/00008B/ffffff', imageHint: 'fractal pattern' },
     ],
     socials: { twitter: '#', bandcamp: '#' },
+    gradient: { from: '#00008B', to: '#000000' },
   },
   {
     id: 'groove-guardian',
@@ -195,13 +206,14 @@ const artistsData: Artist[] = [
         { title: 'Funkadelic Tribute', type: 'Live Session', imageUrl: 'https://placehold.co/200x200/800080/ffffff', imageHint: 'vintage funk band' },
     ],
     socials: { bandcamp: '#', youtube: '#' },
+    gradient: { from: '#800080', to: '#4B0082' },
   }
 ];
 
 
 export default function Home() {
   const [artists, setArtists] = useState(artistsData);
-  const [activeArtist, setActiveArtist] = useState(artists[0]);
+  const [activeArtist, setActiveArtist] = useState(artists[1]); // Start with second artist to match carousel
   const [dateString, setDateString] = useState('');
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -140,18 +141,45 @@ body {
         height: 80%;
         left: 50%;
         transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
     }
 
     .carousel .list .item {
-        position: absolute;
+        position: relative;
+        flex-shrink: 0;
         left: 0%;
         width: 70%;
         height: 100%;
         font-size: 15px;
         transition: left 0.5s, opacity 0.5s, width 0.5s;
     }
+    
+    .carousel.next .list {
+      animation: slideNext 0.5s ease-in-out 1 forwards;
+    }
+    @keyframes slideNext {
+        from {
+            transform: translateX(-50%);
+        }
+        to {
+            transform: translateX(calc(-50% - (70% + 20px)));
+        }
+    }
+    
+    .carousel.prev .list {
+        animation: slidePrev 0.5s ease-in-out 1 forwards;
+    }
+    @keyframes slidePrev {
+        from {
+            transform: translateX(-50%);
+        }
+        to{
+            transform: translateX(calc(-50% + (70% + 20px)));
+        }
+    }
 
-    .carousel .list .item:nth-child(n + 6) { /* Hide items beyond the 5th position */
+    .carousel .list .item:nth-child(n + 6) { /* Hide items beyond the 5th position for initial view */
         opacity: 0;
         pointer-events: none;
     }
@@ -210,30 +238,6 @@ body {
 
     .carousel .list .item .introduce .seeMore:hover {
         background: #222;
-    }
-
-    .carousel .list .item:nth-child(1) {
-        transform: var(--item1-transform);
-        filter: var(--item1-filter);
-        z-index: var(--item1-zIndex);
-        opacity: var(--item1-opacity);
-        pointer-events: none;
-    }
-    .carousel .list .item:nth-child(3) {
-        transform: var(--item3-transform);
-        filter: var(--item3-filter);
-        z-index: var(--item3-zIndex);
-    }
-    .carousel .list .item:nth-child(4) {
-        transform: var(--item4-transform);
-        filter: var(--item4-filter);
-        z-index: var(--item4-zIndex);
-    }
-    .carousel .list .item:nth-child(5) {
-        transform: var(--item5-transform);
-        filter: var(--item5-filter);
-        opacity: var(--item5-opacity);
-        pointer-events: none;
     }
     
     .carousel .list .item:nth-child(2) .introduce .title,
@@ -328,20 +332,31 @@ body {
         opacity: 0;
         pointer-events: none;
     }
-    .carousel.showDetail .list .item:nth-child(3),
-    .carousel.showDetail .list .item:nth-child(4),
-    .carousel.showDetail .list .item:nth-child(5) {
-        left: 100%;
+    .carousel.showDetail .arrows button,
+    .carousel.showDetail .list .item .introduce {
         opacity: 0;
         pointer-events: none;
     }
+
+    .carousel.showDetail .list {
+       display: block;
+    }
+    
+    .carousel.showDetail .list .item {
+      transition: all 0.5s;
+    }
+
+    .carousel.showDetail .list .item:not(:nth-child(2)) {
+        opacity: 0;
+        pointer-events: none;
+        height: 0;
+        width: 0;
+    }
+    
     .carousel.showDetail .list .item:nth-child(2) {
         width: 100%;
     }
-    .carousel.showDetail .list .item:nth-child(2) .introduce {
-        opacity: 0;
-        pointer-events: none;
-    }
+    
     .carousel.showDetail .list .item:nth-child(2) img {
         right: 50%;
     }
@@ -467,16 +482,12 @@ body {
         opacity: 1;
         pointer-events: auto;
     }
-    .carousel.showDetail .arrows button {
-        opacity: 0;
-        pointer-events: none;
-    }
 
     .carousel::before {
         width: 500px;
         height: 300px;
         content: "";
-        background-image: linear-gradient(70deg, hsl(var(--primary)), hsl(var(--accent)));
+        background-image: linear-gradient(70deg, var(--gradient-from), var(--gradient-to));
         position: absolute;
         z-index: -1;
         border-radius: 20% 30% 80% 10%;
