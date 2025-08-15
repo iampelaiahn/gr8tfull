@@ -127,7 +127,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="grid grid-cols-3 md:grid-cols-4 gap-4"
+                      className="grid grid-cols-4 md:grid-cols-4 gap-4"
                     >
                       {artists.map((artist) => (
                         <FormItem key={artist.id} className="space-y-0">
@@ -260,7 +260,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
               name="eventTime"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Hour of Event (24h format)</FormLabel>
+                  <FormLabel>Event Hour</FormLabel>
                    <FormControl>
                     <Slider
                         min={0}
@@ -271,7 +271,7 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
                     />
                   </FormControl>
                   <FormDescription>
-                    Selected time: {field.value?.[0]}:00
+                    Selected time: {field.value?.[0]}:00 (24h format)
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
