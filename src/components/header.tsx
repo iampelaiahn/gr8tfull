@@ -8,6 +8,9 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Artist } from '@/app/page';
 import QRCode from 'qrcode.react';
 import { Button } from './ui/button';
+import { SidebarTrigger, useSidebar } from './ui/sidebar';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 type HeaderProps = {
   activeArtist: Artist;
@@ -20,7 +23,9 @@ const QRCodeGenerator = ({ text }: { text: string }) => {
   return <QRCode value={text} size={192} />;
 };
 
-export default function Header({ activeArtist }: HeaderProps) {
+function HeaderContent({ activeArtist }: HeaderProps) {
+  const { state } = useSidebar();
+  const isMobile = useIsMobile();
   const [qrCodeUrl, setQrCodeUrl] = useState('');
   const [hasUnseenNotifications, setHasUnseenNotifications] = useState(true);
 
@@ -39,6 +44,12 @@ export default function Header({ activeArtist }: HeaderProps) {
   return (
     <header className="main-header sticky top-5 z-50 flex flex-row justify-between items-center p-2 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10 w-full">
       <div className="header-left flex items-center gap-2">
+        <div className={cn(
+          "flex items-center gap-2",
+          {"md:hidden": !isMobile && state === 'expanded'}
+        )}>
+          {(state === 'collapsed' || isMobile) && <SidebarTrigger />}
+        </div>
         <div className="logo text-2xl font-bold flex items-center gap-1">
           <span>gr</span>
           <AnimatedLogo />
@@ -110,4 +121,9 @@ export default function Header({ activeArtist }: HeaderProps) {
       </div>
     </header>
   );
+}
+
+export default function Header(props: HeaderProps) {
+    // The context is available through AppLayout, so we can use it here.
+    return <HeaderContent {...props} />;
 }

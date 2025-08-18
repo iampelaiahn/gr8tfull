@@ -13,7 +13,8 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarRail,
-  SidebarTrigger
+  SidebarTrigger,
+  useSidebar
 } from "@/components/ui/sidebar";
 import AnimatedLogo from "./animated-logo";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -35,13 +36,7 @@ const QRCodeGenerator = ({ text }: { text: string }) => {
 };
 
 export default function DesktopSidebar({ artists, activeArtist }: DesktopSidebarProps) {
-  const [qrCodeUrl, setQrCodeUrl] = useState('');
-
-  const handleQrCodeClick = () => {
-    if (typeof window !== 'undefined') {
-        setQrCodeUrl(`${window.location.origin}/#producers?artist=${activeArtist.id}`);
-    }
-  };
+  const { state } = useSidebar();
 
   return (
     <>
@@ -51,7 +46,7 @@ export default function DesktopSidebar({ artists, activeArtist }: DesktopSidebar
                 <AnimatedLogo />
                 <span className="text-xl font-semibold group-data-[collapsible=icon]:hidden">gr8tful</span>
             </div>
-             <SidebarTrigger />
+            {state === 'expanded' && <SidebarTrigger />}
         </SidebarHeader>
         <SidebarContent>
             <SidebarMenu>
