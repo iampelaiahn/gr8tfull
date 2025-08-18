@@ -29,6 +29,9 @@ function AppLayoutContent({ children, artists, activeArtist }: AppLayoutProps) {
         <DesktopSidebar artists={artists} activeArtist={activeArtist}/>
       </Sidebar>
       <SidebarInset>
+        <div className="hidden md:block fixed top-1/2 left-2 z-50">
+          <SidebarTrigger />
+        </div>
         <div className="flex items-center gap-2 p-2 md:p-4">
           <Header activeArtist={activeArtist} />
         </div>
