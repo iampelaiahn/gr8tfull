@@ -23,6 +23,8 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   const listRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const activeArtist = artists[currentArtistIndex];
 
@@ -41,15 +43,21 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
       clearTimeout(autoPlayTimeoutRef.current);
     }
   };
-
+  
   const runAutoPlay = useCallback(() => {
     clearAutoPlayTimeout();
     autoPlayTimeoutRef.current = setTimeout(() => {
-      // This will be defined because handleNext is defined below and this function is called in useEffect
-      (carouselRef.current?.querySelector('#next') as HTMLElement)?.click();
+      // This is a direct call to the function wrapped by handleNext to avoid dependency issues.
+      if (listRef.current) {
+        clearCarouselTimeout();
+        clearAutoPlayTimeout();
+        const list = listRef.current;
+        list.appendChild(list.children[0]);
+        setCurrentArtistIndex(prevIndex => (prevIndex + 1) % artists.length);
+        runAutoPlay();
+      }
     }, 7000); 
-  }, []);
-
+  }, [artists.length]);
 
   const handleNext = useCallback(() => {
     if (listRef.current) {
@@ -61,7 +69,8 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
       runAutoPlay();
     }
   }, [artists.length, runAutoPlay]);
-  
+
+
   const handlePrev = () => {
     if (listRef.current) {
         clearCarouselTimeout();
@@ -101,6 +110,27 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
       }
     }
   };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+  
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 75) {
+      // Swiped left
+      handleNext();
+    }
+  
+    if (touchStartX.current - touchEndX.current < -75) {
+      // Swiped right
+      handlePrev();
+    }
+  };
+
   
   useEffect(() => {
     runAutoPlay();
@@ -127,6 +157,9 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
         className={cn("carousel", { 'showDetail': showDetail })} 
         ref={carouselRef}
         style={carouselStyle}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
     >
       <audio ref={audioRef} />
         <div className="list" ref={listRef}>
@@ -165,7 +198,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
                 </div>
             ))}
         </div>
-      <div className="arrows">
+      <div className="arrows hidden md:flex">
         <Button variant="outline" size="icon" id="prev" onClick={handlePrev}><ChevronLeft /></Button>
         <Button variant="outline" size="icon" id="next" onClick={handleNext}><ChevronRight /></Button>
       </div>
