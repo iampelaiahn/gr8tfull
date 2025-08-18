@@ -6,6 +6,7 @@ import {
   Sidebar,
   SidebarInset,
   useSidebar,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import DesktopSidebar from "@/components/desktop-sidebar";
 import Header from "@/components/header";
@@ -28,7 +29,14 @@ function AppLayoutContent({ children, artists, activeArtist }: AppLayoutProps) {
         <DesktopSidebar artists={artists} activeArtist={activeArtist}/>
       </Sidebar>
       <SidebarInset>
-        {!isMobile ? null : <Header activeArtist={activeArtist} />}
+        <div className="flex items-center gap-2 p-2 md:p-4">
+            <div className="md:hidden">
+              <Header activeArtist={activeArtist} />
+            </div>
+            <div className="hidden md:block">
+                <SidebarTrigger />
+            </div>
+        </div>
         {children}
         {!isMobile ? null : <BottomNavBar artists={artists} activeArtist={activeArtist}/>}
       </SidebarInset>

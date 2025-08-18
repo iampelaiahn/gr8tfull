@@ -10,9 +10,7 @@ import { useToast } from "@/hooks/use-toast"
 import Link from 'next/link';
 import Image from 'next/image';
 import { Ticket, ShoppingCart, CreditCard, CheckCircle } from 'lucide-react';
-import BottomNavBar from '@/components/bottom-nav-bar';
 import { artistsData } from '@/lib/artists';
-import Header from '@/components/header';
 import AppLayout from '@/components/app-layout';
 
 const events = [
@@ -142,7 +140,7 @@ export default function SocialClubPage() {
   return (
     <Dialog onOpenChange={() => setSelectedProduct(null)}>
       <AppLayout artists={artists} activeArtist={activeArtist}>
-        <div className="flex flex-col min-h-screen bg-background text-foreground p-5 md:p-10 box-border">
+        <div className="flex flex-col min-h-screen bg-background text-foreground p-5 md:p-10 box-border pt-0 md:pt-0">
 
           <main className="flex-grow container mx-auto p-4 md:p-8 pt-16">
             <div className="text-center mb-8">

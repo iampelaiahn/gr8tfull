@@ -3,12 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Header from '@/components/header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
 import ArtistCarousel from '@/components/artist-carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import BottomNavBar from '@/components/bottom-nav-bar';
 import { artistsData } from '@/lib/artists';
 import AppLayout from '@/components/app-layout';
 
@@ -58,7 +55,7 @@ export default function Home() {
 
   return (
     <AppLayout artists={artists} activeArtist={activeArtist}>
-      <div className="hero-section flex flex-col p-5 md:p-10 box-border" id="home">
+      <div className="hero-section flex flex-col p-5 md:p-10 box-border pt-0 md:pt-0" id="home">
         <main className="hero-content flex-grow flex flex-col pt-8">
 
           <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
