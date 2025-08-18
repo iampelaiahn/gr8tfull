@@ -363,7 +363,7 @@ body {
     }
     
     .carousel.showDetail .list .item:nth-child(2) img {
-        left: 50%;
+        left: 0;
         right: auto;
         transform: translateY(-50%) scale(1.15);
         transition: left 1s, transform 1s;
@@ -372,7 +372,8 @@ body {
         opacity: 1;
         width: 45%;
         position: absolute;
-        left: 0;
+        right: 0;
+        left: auto;
         top: 50%;
         transform: translateY(-50%);
         text-align: left;
