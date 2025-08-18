@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -7,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import Image from "next/image"
 import { format } from "date-fns"
-import { CalendarIcon, ArrowLeft } from "lucide-react"
+import { CalendarIcon, ArrowLeft, Send } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -133,9 +134,9 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="px-4 py-2 rounded-xl transition-colors duration-300 cursor-pointer"
+          className="p-0 h-auto flex flex-col items-center text-foreground hover:text-primary transition-colors"
         >
-          Book Now
+            <Send className="h-6 w-6" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg bg-background">

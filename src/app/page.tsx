@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AIPrioritizationDialog from '@/components/ai-prioritization-dialog';
 import ArtistCarousel from '@/components/artist-carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import BottomNavBar from '@/components/bottom-nav-bar';
 
 export type Project = {
   title: string;
@@ -224,7 +225,7 @@ export default function Home() {
 
   return (
     <div className="hero-section min-h-screen flex flex-col p-5 md:p-10 box-border" id="home">
-      <Header activeArtist={activeArtist} artists={artists} />
+      <Header activeArtist={activeArtist} />
       <main className="hero-content flex-grow flex flex-col pt-8">
 
         <ArtistCarousel artists={artists} onArtistChange={setActiveArtist} />
@@ -315,8 +316,7 @@ export default function Home() {
           </div>
         </div>
       </main>
+      <BottomNavBar artists={artists} activeArtist={activeArtist} />
     </div>
   );
 }
-
-    
