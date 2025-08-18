@@ -47,12 +47,8 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
   const runAutoPlay = useCallback(() => {
     clearAutoPlayTimeout();
     autoPlayTimeoutRef.current = setTimeout(() => {
-      // This is a direct call to the function wrapped by handleNext to avoid dependency issues.
       if (listRef.current) {
-        clearCarouselTimeout();
-        clearAutoPlayTimeout();
-        const list = listRef.current;
-        list.appendChild(list.children[0]);
+        listRef.current.appendChild(listRef.current.children[0]);
         setCurrentArtistIndex(prevIndex => (prevIndex + 1) % artists.length);
         runAutoPlay();
       }
