@@ -58,9 +58,9 @@ export default function Header({ activeArtist, artists }: HeaderProps) {
   }
 
   return (
-    <header className="main-header sticky top-5 z-50 flex flex-col md:flex-row justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10">
-      <div className="header-left flex items-center gap-5">
-        <div className="logo text-3xl font-bold flex items-center gap-1.5">
+    <header className="main-header sticky top-5 z-50 flex flex-row justify-between items-center p-4 bg-black/30 backdrop-blur-md rounded-2xl border border-white/10">
+      <div className="header-left flex items-center gap-4">
+        <div className="logo text-2xl font-bold flex items-center gap-1">
           <span>gr</span>
           <AnimatedLogo />
           <span>tful</span>
