@@ -4,7 +4,6 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { Grid3x3 } from "lucide-react"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -267,32 +266,101 @@ const SidebarTrigger = React.forwardRef<
   const { toggleSidebar } = useSidebar()
 
   return (
-    <Button
-      ref={ref}
-      data-sidebar="trigger"
-      variant="ghost"
-      size="icon"
-      className={cn("h-8 w-8", className)}
-      onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
-      }}
-      {...props}
-    >
-      <svg
-        width="15"
-        height="15"
-        viewBox="0 0 15 15"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+    <>
+      <style>
+        {`
+          @keyframes sidebar-dot-pulse {
+            0%, 100% {
+              transform: scale(1);
+              opacity: 0.8;
+            }
+            50% {
+              transform: scale(1.4);
+              opacity: 1;
+            }
+          }
+          .sidebar-dot {
+            animation: sidebar-dot-pulse 1.5s infinite;
+          }
+        `}
+      </style>
+      <Button
+        ref={ref}
+        data-sidebar="trigger"
+        variant="ghost"
+        size="icon"
+        className={cn("h-8 w-8", className)}
+        onClick={(event) => {
+          onClick?.(event)
+          toggleSidebar()
+        }}
+        {...props}
       >
-        <path
-          d="M2.5 2.5C2.77614 2.5 3 2.72386 3 3C3 3.27614 2.77614 3.5 2.5 3.5C2.22386 3.5 2 3.27614 2 3C2 2.72386 2.22386 2.5 2.5 2.5ZM7.5 2.5C7.77614 2.5 8 2.72386 8 3C8 3.27614 7.77614 3.5 7.5 3.5C7.22386 3.5 7 3.27614 7 3C7 2.72386 7.22386 2.5 7.5 2.5ZM12.5 2.5C12.7761 2.5 13 2.72386 13 3C13 3.27614 12.7761 3.5 12.5 3.5C12.2239 3.5 12 3.27614 12 3C12 2.72386 12.2239 2.5 12.5 2.5ZM2.5 7.5C2.77614 7.5 3 7.72386 3 8C3 8.27614 2.77614 8.5 2.5 8.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5ZM7.5 7.5C7.77614 7.5 8 7.72386 8 8C8 8.27614 7.77614 8.5 7.5 8.5C7.22386 8.5 7 8.27614 7 8C7 7.72386 7.22386 7.5 7.5 7.5ZM12.5 7.5C12.7761 7.5 13 7.72386 13 8C13 8.27614 12.7761 8.5 12.5 8.5C12.2239 8.5 12 8.27614 12 8C12 7.72386 12.2239 7.5 12.5 7.5ZM2.5 12.5C2.77614 12.5 3 12.7239 3 13C3 13.2761 2.77614 13.5 2.5 13.5C2.22386 13.5 2 13.2761 2 13C2 12.7239 2.22386 12.5 2.5 12.5ZM7.5 12.5C7.77614 12.5 8 12.7239 8 13C8 13.2761 7.77614 13.5 7.5 13.5C7.22386 13.5 7 13.2761 7 13C7 12.7239 7.22386 12.5 7.5 12.5ZM12.5 12.5C12.7761 12.5 13 12.7239 13 13C13 13.2761 12.7761 13.5 12.5 13.5C12.2239 13.5 12 13.2761 12 13C12 12.7239 12.2239 12.5 12.5 12.5Z"
-          fill="currentColor"
-        ></path>
-      </svg>
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.1s' }}
+            fill="currentColor"
+            d="M2.5 2.5C2.77614 2.5 3 2.72386 3 3C3 3.27614 2.77614 3.5 2.5 3.5C2.22386 3.5 2 3.27614 2 3C2 2.72386 2.22386 2.5 2.5 2.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.2s' }}
+            fill="currentColor"
+            d="M7.5 2.5C7.77614 2.5 8 2.72386 8 3C8 3.27614 7.77614 3.5 7.5 3.5C7.22386 3.5 7 3.27614 7 3C7 2.72386 7.22386 2.5 7.5 2.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.3s' }}
+            fill="currentColor"
+            d="M12.5 2.5C12.7761 2.5 13 2.72386 13 3C13 3.27614 12.7761 3.5 12.5 3.5C12.2239 3.5 12 3.27614 12 3C12 2.72386 12.2239 2.5 12.5 2.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.4s' }}
+            fill="currentColor"
+            d="M2.5 7.5C2.77614 7.5 3 7.72386 3 8C3 8.27614 2.77614 8.5 2.5 8.5C2.22386 8.5 2 8.27614 2 8C2 7.72386 2.22386 7.5 2.5 7.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.5s' }}
+            fill="currentColor"
+            d="M7.5 7.5C7.77614 7.5 8 7.72386 8 8C8 8.27614 7.77614 8.5 7.5 8.5C7.22386 8.5 7 8.27614 7 8C7 7.72386 7.22386 7.5 7.5 7.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.6s' }}
+            fill="currentColor"
+            d="M12.5 7.5C12.7761 7.5 13 7.72386 13 8C13 8.27614 12.7761 8.5 12.5 8.5C12.2239 8.5 12 8.27614 12 8C12 7.72386 12.2239 7.5 12.5 7.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.7s' }}
+            fill="currentColor"
+            d="M2.5 12.5C2.77614 12.5 3 12.7239 3 13C3 13.2761 2.77614 13.5 2.5 13.5C2.22386 13.5 2 13.2761 2 13C2 12.7239 2.22386 12.5 2.5 12.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.8s' }}
+            fill="currentColor"
+            d="M7.5 12.5C7.77614 12.5 8 12.7239 8 13C8 13.2761 7.77614 13.5 7.5 13.5C7.22386 13.5 7 13.2761 7 13C7 12.7239 7.22386 12.5 7.5 12.5Z"
+          />
+          <path
+            className="sidebar-dot"
+            style={{ animationDelay: '0.9s' }}
+            fill="currentColor"
+            d="M12.5 12.5C12.7761 12.5 13 12.7239 13 13C13 13.2761 12.7761 13.5 12.5 13.5C12.2239 13.5 12 13.2761 12 13C12 12.7239 12.2239 12.5 12.5 12.5Z"
+          />
+        </svg>
+        <span className="sr-only">Toggle Sidebar</span>
+      </Button>
+    </>
   )
 })
 SidebarTrigger.displayName = "SidebarTrigger"
@@ -773,5 +841,3 @@ export {
   SidebarTrigger,
   useSidebar,
 }
-
-    
