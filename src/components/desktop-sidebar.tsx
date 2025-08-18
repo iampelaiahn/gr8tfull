@@ -12,7 +12,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
-  SidebarRail
+  SidebarRail,
+  SidebarTrigger
 } from "@/components/ui/sidebar";
 import AnimatedLogo from "./animated-logo";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
@@ -45,11 +46,12 @@ export default function DesktopSidebar({ artists, activeArtist }: DesktopSidebar
   return (
     <>
         <SidebarRail />
-        <SidebarHeader>
+        <SidebarHeader className="flex-row justify-between">
             <div className="flex items-center gap-2">
                 <AnimatedLogo />
-                <span className="text-xl font-semibold">gr8tful</span>
+                <span className="text-xl font-semibold group-data-[collapsible=icon]:hidden">gr8tful</span>
             </div>
+             <SidebarTrigger />
         </SidebarHeader>
         <SidebarContent>
             <SidebarMenu>

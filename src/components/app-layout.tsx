@@ -33,9 +33,6 @@ function AppLayoutContent({ children, artists, activeArtist }: AppLayoutProps) {
             <div className="md:hidden">
               <Header activeArtist={activeArtist} />
             </div>
-            <div className="hidden md:block">
-                <SidebarTrigger />
-            </div>
         </div>
         {children}
         {!isMobile ? null : <BottomNavBar artists={artists} activeArtist={activeArtist}/>}
