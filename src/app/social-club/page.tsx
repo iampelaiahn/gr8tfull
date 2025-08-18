@@ -10,6 +10,9 @@ import { useToast } from "@/hooks/use-toast"
 import Link from 'next/link';
 import Image from 'next/image';
 import { Ticket, ShoppingCart, CreditCard, CheckCircle } from 'lucide-react';
+import BottomNavBar from '@/components/bottom-nav-bar';
+import { artistsData } from '@/lib/artists';
+import Header from '@/components/header';
 
 const events = [
   {
@@ -114,6 +117,8 @@ export default function SocialClubPage() {
   const { toast } = useToast();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const artists = artistsData;
+  const activeArtist = artists[0]; // Default to first artist
 
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
@@ -135,17 +140,10 @@ export default function SocialClubPage() {
 
   return (
     <Dialog onOpenChange={() => setSelectedProduct(null)}>
-      <div className="flex flex-col min-h-screen bg-background text-foreground">
-        <header className="sticky top-0 z-50 flex justify-between items-center p-4 bg-black/30 backdrop-blur-md border-b border-white/10">
-          <Link href="/" className="logo text-3xl font-bold flex items-center gap-1.5">
-            <span>gr8tful</span>
-          </Link>
-          <Button asChild variant="outline">
-            <Link href="/">Back to Home</Link>
-          </Button>
-        </header>
+      <div className="flex flex-col min-h-screen bg-background text-foreground p-5 md:p-10 box-border">
+        <Header activeArtist={activeArtist} />
 
-        <main className="flex-grow container mx-auto p-4 md:p-8">
+        <main className="flex-grow container mx-auto p-4 md:p-8 pt-16">
           <div className="text-center mb-8">
             <h1 className="text-5xl font-bold text-primary">Welcome to the Social Club</h1>
             <p className="text-xl text-muted-foreground mt-4">
@@ -208,6 +206,7 @@ export default function SocialClubPage() {
             </TabsContent>
           </Tabs>
         </main>
+        <BottomNavBar artists={artists} activeArtist={activeArtist} />
       </div>
 
       <DialogContent className="sm:max-w-md bg-background">
