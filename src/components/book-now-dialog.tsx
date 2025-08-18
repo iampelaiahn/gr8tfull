@@ -46,6 +46,7 @@ import { Artist } from "@/app/page"
 import { cn } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ScrollArea } from "./ui/scroll-area"
+import { SidebarMenuButton } from "./ui/sidebar"
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -132,12 +133,10 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="ghost"
-          className="p-0 h-auto flex flex-col items-center text-foreground hover:text-primary transition-colors"
-        >
-            <Send className="h-6 w-6" />
-        </Button>
+        <SidebarMenuButton>
+            <Send />
+            <span>Book Now</span>
+        </SidebarMenuButton>
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg bg-background grid-rows-[auto_minmax(0,1fr)_auto] p-0 max-h-[90vh]">
         <DialogHeader className="p-6 pb-0">
@@ -433,5 +432,3 @@ export default function BookNowDialog({ artists, activeArtist }: BookNowDialogPr
     </Dialog>
   )
 }
-
-    

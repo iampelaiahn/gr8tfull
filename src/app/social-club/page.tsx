@@ -13,6 +13,7 @@ import { Ticket, ShoppingCart, CreditCard, CheckCircle } from 'lucide-react';
 import BottomNavBar from '@/components/bottom-nav-bar';
 import { artistsData } from '@/lib/artists';
 import Header from '@/components/header';
+import AppLayout from '@/components/app-layout';
 
 const events = [
   {
@@ -140,74 +141,74 @@ export default function SocialClubPage() {
 
   return (
     <Dialog onOpenChange={() => setSelectedProduct(null)}>
-      <div className="flex flex-col min-h-screen bg-background text-foreground p-5 md:p-10 box-border">
-        <Header activeArtist={activeArtist} />
+      <AppLayout artists={artists} activeArtist={activeArtist}>
+        <div className="flex flex-col min-h-screen bg-background text-foreground p-5 md:p-10 box-border">
 
-        <main className="flex-grow container mx-auto p-4 md:p-8 pt-16">
-          <div className="text-center mb-8">
-            <h1 className="text-5xl font-bold text-primary">Welcome to the Social Club</h1>
-            <p className="text-xl text-muted-foreground mt-4">
-              Your exclusive access to tickets and merch.
-            </p>
-          </div>
+          <main className="flex-grow container mx-auto p-4 md:p-8 pt-16">
+            <div className="text-center mb-8">
+              <h1 className="text-5xl font-bold text-primary">Welcome to the Social Club</h1>
+              <p className="text-xl text-muted-foreground mt-4">
+                Your exclusive access to tickets and merch.
+              </p>
+            </div>
 
-          <Tabs defaultValue="tickets" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
-              <TabsTrigger value="tickets"><Ticket className="mr-2"/> Tickets</TabsTrigger>
-              <TabsTrigger value="fashion"><ShoppingCart className="mr-2"/> Fashion</TabsTrigger>
-            </TabsList>
+            <Tabs defaultValue="tickets" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto">
+                <TabsTrigger value="tickets"><Ticket className="mr-2"/> Tickets</TabsTrigger>
+                <TabsTrigger value="fashion"><ShoppingCart className="mr-2"/> Fashion</TabsTrigger>
+              </TabsList>
 
-            <TabsContent value="tickets">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                    {events.map((event) => (
-                        <Card key={event.id} className="social-club-card">
-                            <CardHeader className="p-0">
-                                <Image src={event.imageUrl} alt={event.name} width={600} height={400} className="rounded-t-lg aspect-[3/2] object-cover" data-ai-hint={event.imageHint} />
-                            </CardHeader>
-                            <CardContent className="p-4">
-                                <CardTitle className="text-xl">{event.name}</CardTitle>
-                                <CardDescription className="mt-2">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} - {event.location}</CardDescription>
-                            </CardContent>
-                            <CardFooter className="p-4 flex justify-between items-center">
-                                <span className="text-2xl font-bold text-primary">${event.price.toFixed(2)}</span>
-                                <DialogTrigger asChild>
-                                    <Button onClick={() => handleBuyClick(event)}>
-                                        <Ticket className="mr-2"/> Get Ticket
-                                    </Button>
-                                </DialogTrigger>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
-            </TabsContent>
+              <TabsContent value="tickets">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                      {events.map((event) => (
+                          <Card key={event.id} className="social-club-card">
+                              <CardHeader className="p-0">
+                                  <Image src={event.imageUrl} alt={event.name} width={600} height={400} className="rounded-t-lg aspect-[3/2] object-cover" data-ai-hint={event.imageHint} />
+                              </CardHeader>
+                              <CardContent className="p-4">
+                                  <CardTitle className="text-xl">{event.name}</CardTitle>
+                                  <CardDescription className="mt-2">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} - {event.location}</CardDescription>
+                              </CardContent>
+                              <CardFooter className="p-4 flex justify-between items-center">
+                                  <span className="text-2xl font-bold text-primary">${event.price.toFixed(2)}</span>
+                                  <DialogTrigger asChild>
+                                      <Button onClick={() => handleBuyClick(event)}>
+                                          <Ticket className="mr-2"/> Get Ticket
+                                      </Button>
+                                  </DialogTrigger>
+                              </CardFooter>
+                          </Card>
+                      ))}
+                  </div>
+              </TabsContent>
 
-            <TabsContent value="fashion">
-                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                    {fashionItems.map((item) => (
-                         <Card key={item.id} className="social-club-card text-center">
-                            <CardHeader className="p-0">
-                                 <Image src={item.imageUrl} alt={item.name} width={400} height={400} className="rounded-t-lg aspect-square object-cover" data-ai-hint={item.imageHint} />
-                            </CardHeader>
-                            <CardContent className="p-4">
-                                <CardTitle className="text-lg">{item.name}</CardTitle>
-                                <p className="text-muted-foreground text-sm mt-1">{item.sizes.join(' / ')}</p>
-                            </CardContent>
-                             <CardFooter className="p-4 flex justify-between items-center">
-                                <span className="text-xl font-bold text-primary">${item.price.toFixed(2)}</span>
-                                <DialogTrigger asChild>
-                                    <Button size="sm" onClick={() => handleBuyClick(item)}>
-                                        <ShoppingCart className="mr-2"/> Buy
-                                    </Button>
-                                </DialogTrigger>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
-            </TabsContent>
-          </Tabs>
-        </main>
-        <BottomNavBar artists={artists} activeArtist={activeArtist} />
-      </div>
+              <TabsContent value="fashion">
+                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                      {fashionItems.map((item) => (
+                           <Card key={item.id} className="social-club-card text-center">
+                              <CardHeader className="p-0">
+                                   <Image src={item.imageUrl} alt={item.name} width={400} height={400} className="rounded-t-lg aspect-square object-cover" data-ai-hint={item.imageHint} />
+                              </CardHeader>
+                              <CardContent className="p-4">
+                                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                                  <p className="text-muted-foreground text-sm mt-1">{item.sizes.join(' / ')}</p>
+                              </CardContent>
+                               <CardFooter className="p-4 flex justify-between items-center">
+                                  <span className="text-xl font-bold text-primary">${item.price.toFixed(2)}</span>
+                                  <DialogTrigger asChild>
+                                      <Button size="sm" onClick={() => handleBuyClick(item)}>
+                                          <ShoppingCart className="mr-2"/> Buy
+                                      </Button>
+                                  </DialogTrigger>
+                              </CardFooter>
+                          </Card>
+                      ))}
+                  </div>
+              </TabsContent>
+            </Tabs>
+          </main>
+        </div>
+      </AppLayout>
 
       <DialogContent className="sm:max-w-md bg-background">
         {selectedProduct && (

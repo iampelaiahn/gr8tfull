@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
@@ -26,8 +27,8 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body className={`${spaceGrotesk.variable} font-body antialiased bg-background`}>
-        {children}
-        <Toaster />
+          {children}
+          <Toaster />
       </body>
     </html>
   );
