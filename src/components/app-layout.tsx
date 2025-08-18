@@ -30,9 +30,7 @@ function AppLayoutContent({ children, artists, activeArtist }: AppLayoutProps) {
       </Sidebar>
       <SidebarInset>
         <div className="flex items-center gap-2 p-2 md:p-4">
-            <div className="md:hidden">
-              <Header activeArtist={activeArtist} />
-            </div>
+          <Header activeArtist={activeArtist} />
         </div>
         {children}
         {!isMobile ? null : <BottomNavBar artists={artists} activeArtist={activeArtist}/>}

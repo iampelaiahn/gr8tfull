@@ -90,26 +90,6 @@ export default function DesktopSidebar({ artists, activeArtist }: DesktopSidebar
             </SidebarMenu>
         </SidebarContent>
         <SidebarFooter className="flex-col !items-start gap-4">
-             <Popover>
-                <PopoverTrigger asChild>
-                    <Button variant="ghost" onClick={handleQrCodeClick} className="w-full justify-start">
-                        <QrCode />
-                        <span>QR Code</span>
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto bg-background/80 backdrop-blur-md border-white/20 p-4">
-                    <div className="text-center text-foreground mb-2">
-                        Scan for {activeArtist.name}'s profile
-                    </div>
-                    {qrCodeUrl ? (
-                        <QRCodeGenerator text={qrCodeUrl} />
-                    ) : (
-                        <div className="w-48 h-48 bg-gray-700 flex items-center justify-center">
-                            <p className="text-foreground">Click QR icon again</p>
-                        </div>
-                    )}
-                </PopoverContent>
-              </Popover>
             <div>
                 <BookNowDialog artists={artists} activeArtist={activeArtist} />
             </div>
