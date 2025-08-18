@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Home, Store, Calendar, Heart } from "lucide-react";
 import BookNowDialog from "./book-now-dialog";
 import { Artist } from "@/app/page";
+import { cn } from "@/lib/utils";
 
 type BottomNavBarProps = {
     artists: Artist[];
@@ -13,7 +14,13 @@ type BottomNavBarProps = {
 
 export default function BottomNavBar({ artists, activeArtist }: BottomNavBarProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-black/30 backdrop-blur-md border-t border-white/10 p-2 md:hidden">
+    <nav className={cn(
+        "fixed bottom-4 left-1/2 -translate-x-1/2", // Centering
+        "w-[calc(100vw-2rem)] max-w-md", // Width with padding
+        "bg-black/30 backdrop-blur-md", // Background and blur
+        "border border-white/10 rounded-full", // Pill shape
+        "p-2 md:hidden" // Padding and visibility
+    )}>
       <div className="flex justify-around items-center">
         <Link href="#home" className="flex flex-col items-center text-foreground hover:text-primary transition-colors">
           <Home className="h-6 w-6" />
