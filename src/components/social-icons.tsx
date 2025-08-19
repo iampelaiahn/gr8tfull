@@ -4,7 +4,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { SocialLinks } from '@/app/page';
-import { Spotify, Instagram, Youtube, Twitter, Mic, Music, Disc, Tent } from 'lucide-react';
+import { Instagram, Youtube, Twitter, Mic, Music, Disc, Tent } from 'lucide-react';
 
 // A more generic icon mapping
 const socialIconMap: { [key: string]: React.ElementType } = {

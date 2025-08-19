@@ -70,7 +70,7 @@ export default function Home() {
               <Card className="relative flex flex-col justify-end p-6 rounded-2xl overflow-hidden bg-cover bg-center border-0" style={{backgroundImage: "url('https://placehold.co/600x800/BE1AD6/000000')"}} data-ai-hint="new album">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                   <CardContent className="relative z-10 p-0">
-                      <h3 className="text-3xl m-0 mb-2 leading-tight">New Album Drop: "Nobody"</h3>
+                      <h3 className="text-3xl m-0 mb-2 leading-tight">New Album Drop: &quot;Nobody&quot;</h3>
                       <p className="text-muted-foreground">Listen to the new album from the founder, out now!</p>
                   </CardContent>
               </Card>
@@ -110,7 +110,7 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-foreground/80">"To the one who saw the spark and fanned it into a flame. Your guidance was the compass that led me here. Thank you for everything."</p>
+                  <p className="text-foreground/80">&quot;To the one who saw the spark and fanned it into a flame. Your guidance was the compass that led me here. Thank you for everything.&quot;</p>
                 </CardContent>
               </Card>
               <Card className="bg-card/50 backdrop-blur-sm border-white/10">
@@ -125,7 +125,7 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-foreground/80">"For the vision that challenged me, the standards that pushed me, and the belief that lifted me. We're building the future you imagined."</p>
+                  <p className="text-foreground/80">&quot;For the vision that challenged me, the standards that pushed me, and the belief that lifted me. We&apos;re building the future you imagined.&quot;</p>
                 </CardContent>
               </Card>
                <Card className="bg-card/50 backdrop-blur-sm border-white/10">
@@ -140,7 +140,7 @@ export default function Home() {
                    </div>
                 </CardHeader>
                 <CardContent>
-                   <p className="text-foreground/80">"To every listener, supporter, and collaborator. You are the heartbeat of this journey. This is for you, always."</p>
+                   <p className="text-foreground/80">&quot;To every listener, supporter, and collaborator. You are the heartbeat of this journey. This is for you, always.&quot;</p>
                 </CardContent>
               </Card>
             </div>

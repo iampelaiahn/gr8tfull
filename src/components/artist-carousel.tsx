@@ -178,7 +178,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
                         <div className="project-grid">
                             {artist.projects.length > 0 ? artist.projects.map((project: Project, projIndex: number) => (
                                 <div key={projIndex} className={cn("project-card", { 'playing': playingTrack === project.trackPreviewUrl })} onClick={() => project.trackPreviewUrl && togglePlay(project.trackPreviewUrl)}>
-                                    <Image src={project.imageUrl} alt={project.title} width={120} height={120} data-ai-hint={project.imageHint}/>
+                                    <Image src={project.imageUrl || 'https://placehold.co/120x120'} alt={project.title} width={120} height={120} data-ai-hint={project.imageHint}/>
                                     <h5>{project.title}</h5>
                                     <p>{project.type}</p>
                                     {project.trackPreviewUrl && (
@@ -190,7 +190,7 @@ const ArtistCarousel = ({ artists, onArtistChange }: ArtistCarouselProps) => {
                             )) : <p>No projects yet.</p>}
                         </div>
                     </div>
-                     <Image src={artist.imageUrl} alt={artist.name} width={600} height={800} data-ai-hint={artist.imageHint} />
+                     <Image src={artist.imageUrl || 'https://placehold.co/600x800'} alt={artist.name} width={600} height={800} data-ai-hint={artist.imageHint} />
                 </div>
             ))}
         </div>

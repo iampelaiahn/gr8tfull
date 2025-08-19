@@ -18,7 +18,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  instrumentationHook: true,
 };
 
 export default nextConfig;
